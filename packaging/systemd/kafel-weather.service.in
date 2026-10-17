@@ -1,0 +1,21 @@
+[Unit]
+Description=Kafel weather publisher
+Wants=network-online.target kafel-dashboard.service
+After=network-online.target kafel-dashboard.service
+
+[Service]
+Type=simple
+User=@USER@
+WorkingDirectory=/opt/kafel
+EnvironmentFile=/etc/kafel/weather.env
+ExecStart=/opt/kafel/current/bin/kafel-weather
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=15
+NoNewPrivileges=yes
+UMask=0077
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

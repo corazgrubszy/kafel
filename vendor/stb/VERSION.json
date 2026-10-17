@@ -1,0 +1,14 @@
+{
+  "repository": "https://github.com/nothings/stb",
+  "commit": "6e9f34d5429cf16790ec43c9bac3f1ee4ad1f760",
+  "files": {
+    "stb_truetype.h": {
+      "bytes": 199192,
+      "sha256": "ecd30b05e0dd4fea3a13c26810dd9e1992dc379049482c393d5a19e6b5090aab"
+    },
+    "LICENSE": {
+      "bytes": 2510,
+      "sha256": "bebfe904b14301657e4e5d655c811d51fd31b97c455b9cc2d8600d6bac6cff63"
+    }
+  }
+}

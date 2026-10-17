@@ -1,0 +1,3 @@
+DASH/4	infohub	InfoHub
+TILE	weather	2	ok	normal	Pogoda	metric	8	°C	Deszcz	Wiatr: 3.3 m/s
+TILE	waste	2	ok	attention	Śmieci	text	[#60A8E8]🗑[/] Dzisiaj

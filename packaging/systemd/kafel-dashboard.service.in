@@ -1,0 +1,22 @@
+[Unit]
+Description=Kafel dashboard
+After=local-fs.target
+
+[Service]
+Type=simple
+User=@USER@
+SupplementaryGroups=video input
+WorkingDirectory=/opt/kafel
+EnvironmentFile=/etc/kafel/dashboard.env
+ExecStartPre=+/usr/bin/python3 /opt/kafel/libexec/display_console.py isolate
+ExecStart=/opt/kafel/current/bin/kafel-dashboard
+Restart=on-failure
+RestartSec=3
+TimeoutStopSec=15
+NoNewPrivileges=yes
+UMask=0077
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
