@@ -30,7 +30,6 @@ def remote(user,stage):
     uid=pwd.getpwnam(user).pw_uid
     home=Path(pwd.getpwnam(user).pw_dir)
     protected=Path('/var/lib/kafel-waste')
-    legacy_backup=home/'infohub/data'
     protected_directories={protected}
     report={'services':{},'legacy_units':[],'artifacts':[],'scan_errors':[],
             'preserved_schedule':{'path':str(protected),'exists':protected.is_dir()},'binaries':{},'scan_roots':[]}
@@ -62,6 +61,18 @@ def remote(user,stage):
         code,out,error=command('systemctl','show',unit,'-p','ActiveState','-p','SubState','-p','MainPID','-p','NRestarts','-p','UnitFileState','-p','ExecStart')
         report['services'][unit]=dict(line.split('=',1) for line in out.splitlines() if '=' in line)
         if code: report['scan_errors'].append({'operation':unit,'error':error})
+    for item in (current,backup):
+        code,out,error=command('runuser','-u',user,'--','/opt/kafel/current/bin/kafel-waste','--check',item['path'])
+        item['valid_as_service_user']=code==0
+        if code:report['scan_errors'].append({'operation':'validate '+item['path'],'error':error or out})
+    report['journal']={}
+    for unit in EXPECTED:
+        code,out,error=command('journalctl','-b','-u',unit,'-p','warning','-n','100','--no-pager','-o','short-iso','--quiet')
+        report['journal'][unit]={'scope':'current boot, last 100 warning-or-higher entries','entries':out.splitlines()}
+        if code:report['scan_errors'].append({'operation':'journal '+unit,'error':error})
+        code,out,error=command('journalctl','-b','-u',unit,'-n','40','--no-pager','-o','short-iso','--quiet')
+        report['journal'][unit]['recent_entries']=out.splitlines()
+        if code:report['scan_errors'].append({'operation':'recent journal '+unit,'error':error})
     code,out,error=command('systemctl','list-unit-files','dashboard*','infohub*','kafel-*','--no-legend','--no-pager')
     report['unit_files']=out.splitlines()
     if code: report['scan_errors'].append({'operation':'list-unit-files','error':error})
