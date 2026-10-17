@@ -1,4 +1,4 @@
-"""Copy a legacy schedule into dedicated persistent storage without deleting data."""
+"""Manage persistent schedule copies and narrowly scoped retired-file cleanup."""
 import hashlib
 import os
 from pathlib import Path
@@ -42,7 +42,7 @@ class SchedulePlan:
         result={'path':'/'+str(self.destination.relative_to(self.root)),'sha256':self.sha256}
         if self.source:
             result['migration']={'source':'/'+str(self.source.relative_to(self.root)),
-                'copied':self.copied,'source_preserved':True,'backup_entry':'waste-schedule-original.json'}
+                'copied':self.copied,'source_preserved':self.source.exists(),'backup_entry':'waste-schedule-original.json'}
         return result
 
     def apply(self):
@@ -115,4 +115,44 @@ def prepare(root,home,stage,configured,explicit,uid,gid,validate):
         data=read_schedule(destination)
         validate(destination)
         needs_copy=False
-    return SchedulePlan(root,destination,data,validate,uid,gid,source,needs_copy)
+    plan = SchedulePlan(root,destination,data,validate,uid,gid,source,needs_copy)
+    plan.cleanup = InfoHubCleanup(plan, home)
+    return plan
+
+
+class InfoHubCleanup:
+    """Back up the known retired schedule; never recursively delete a tree."""
+    def __init__(self, plan, home):
+        self.plan = plan
+        self.directory = plan.root / (home / 'infohub').relative_to('/')
+        self.source = self.directory / 'data/garbage_schedule.json'
+        self.backup = plan.root / (DEFAULT_SCHEDULE.parent / 'garbage_schedule.infohub-backup.json').relative_to('/')
+        safe_parents(plan.root, self.source.parent)
+        self.payload = read_schedule(self.source) if self.source.exists() or self.source.is_symlink() else None
+        if self.payload is not None:
+            plan.validate(self.source)
+            if self.backup.exists() or self.backup.is_symlink():
+                if read_schedule(self.backup) != self.payload:
+                    raise RuntimeError('Conflicting InfoHub schedule backup; refusing cleanup')
+        self.removed = False
+
+    def apply(self):
+        if self.payload is not None:
+            if read_schedule(self.source) != self.payload:
+                raise RuntimeError('InfoHub schedule changed; retry deployment')
+            copy = SchedulePlan(self.plan.root, self.backup, self.payload, self.plan.validate,
+                                self.plan.uid, self.plan.gid, needs_copy=not self.backup.exists())
+            copy.apply()
+            if read_schedule(self.source) != read_schedule(self.backup):
+                raise RuntimeError('InfoHub backup verification failed; refusing cleanup')
+            self.source.unlink()
+            self.removed = True
+        # Only empty, explicitly named old directories may be removed.
+        for path in (self.directory / 'data', self.directory):
+            if path.exists() and not path.is_symlink() and not any(path.iterdir()):
+                path.rmdir()
+
+    def report(self):
+        return {'schedule_removed': self.removed,
+                'schedule_backup': '/' + str(self.backup.relative_to(self.plan.root)) if self.backup.is_file() else None,
+                'directory_remaining': self.directory.exists()}

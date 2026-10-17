@@ -489,10 +489,13 @@ class Installer:
             if 'kafel-dashboard' in selected and status.is_file():self.display_report['isolation']=json.loads(status.read_text())
             path = self.stage/'report.json'
             path.write_text(json.dumps({'changed': changed, 'unchanged': [n for n in selected if n not in changed],
-                                       'services': self.health_report, 'display': self.display_report,'untouched_services':untouched,'waste_schedule':self.waste_plan.report() if self.waste_plan else None}, indent=2)+'\n')
+                                       'services': self.health_report, 'display': self.display_report,'untouched_services':untouched,'waste_schedule':self.waste_plan.report() if self.waste_plan else None,'infohub_cleanup':self.waste_plan.cleanup.report() if self.waste_plan else None}, indent=2)+'\n')
             os.chmod(path, 0o600)
             os.chown(path, pwd.getpwnam(self.user).pw_uid, -1)
         if not changed:
+            if self.waste_plan:
+                self.health(('kafel-waste.service',), ('kafel-waste',))
+                self.waste_plan.cleanup.apply()
             report()
             print('  · Wybrane aplikacje bez zmian; bez restartu.', flush=True)
             return
@@ -540,6 +543,9 @@ class Installer:
             self.rollback(previous, units)
             if previous != 'releases/'+release_id: shutil.rmtree(release, ignore_errors=True)
             raise
+        if self.waste_plan:
+            self.waste_plan.cleanup.apply()
+            report()
         # The archive contains the old release; retain no extra copies on CM4.
         for old in (self.base/'releases').iterdir():
             if old != release and old.is_dir() and not old.is_symlink() and re.fullmatch(r'[a-f0-9]{24}', old.name):

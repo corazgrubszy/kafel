@@ -23,7 +23,7 @@ Dane należą do usługi i pozostają poza katalogami wydań:
 `StateDirectory=kafel-waste` z prawami katalogu `0700`.
 
 Przy aktualizacji starej konfiguracji instalator kopiuje harmonogram z
-`/home/<user>/infohub/data/garbage_schedule.json`, zachowując oryginał bez zmian.
+`/home/<user>/infohub/data/garbage_schedule.json`, zachowując oryginał do etapu sprzątania opisanego poniżej.
 Przed zatrzymaniem Śmieci sprawdza format jako konto demona. Kopię zapisuje
 atomowo, bez nadpisywania istniejącego pliku, z prawami `0600`; potwierdza
 zgodność bajtów i ponownie sprawdza odczyt jako konto usługi. Różne dane w obu
@@ -148,3 +148,18 @@ sprawdza heartbeat, SIGTERM i identyczny hash pliku po pracy demona.
 Test renderera potwierdza kompletne cztery kubły bez skalowania i niezależne
 przewijanie pełnej daty. Test wdrożenia sprawdza przejście z dwóch usług do
 trzech i powrót po błędzie — harmonogram pozostaje nietknięty.
+
+
+### Kopia harmonogramu i sprzątanie InfoHuba
+
+Po sprawdzeniu działania `kafel-waste`, `zig build deploy-waste` zapisuje kopię
+starego harmonogramu jako
+`/var/lib/kafel-waste/garbage_schedule.infohub-backup.json` (`0600`).
+Sprawdza zgodność bajtów i odczyt kopii jako konto usługi, dopiero potem usuwa
+`/home/<user>/infohub/data/garbage_schedule.json` oraz puste katalogi `data`
+i `infohub`. Inne pliki pozostają nietknięte i są zgłaszane w raporcie.
+Konflikt kopii lub błąd zapisu blokuje usunięcie źródła. Backup pozostaje
+niezmienny przy kolejnych wdrożeniach, również gdy aktywny harmonogram się zmieni.
+Sprzątanie wykonuje się także przy niezmienionej binarce, bez restartu usług.
+Raport `infohub_cleanup` wskazuje kopię i ewentualne pozostałości.
+Lokalne repo InfoHub i prywatne dane poza CM4 pozostają bez zmian.

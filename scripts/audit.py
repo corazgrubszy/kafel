@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Read-only audit of Kafel migration; preserve InfoHub's waste schedule."""
+"""Read-only audit of Kafel installation and persistent schedule backups."""
 import argparse
 import hashlib
 import json
@@ -31,7 +31,7 @@ def remote(user,stage):
     home=Path(pwd.getpwnam(user).pw_dir)
     protected=Path('/var/lib/kafel-waste')
     legacy_backup=home/'infohub/data'
-    protected_directories={protected,legacy_backup}
+    protected_directories={protected}
     report={'services':{},'legacy_units':[],'artifacts':[],'scan_errors':[],
             'preserved_schedule':{'path':str(protected),'exists':protected.is_dir()},'binaries':{},'scan_roots':[]}
     state=Path('/run/kafel-display/status.json')
@@ -55,8 +55,8 @@ def remote(user,stage):
                           uid=metadata.st_uid,mode=oct(metadata.st_mode&0o777))
         return result
     current=schedule_metadata(schedule)
-    backup=schedule_metadata(legacy_backup/'garbage_schedule.json')
-    report['schedule_data']={'active':current,'legacy_backup':backup,
+    backup=schedule_metadata(protected/'garbage_schedule.infohub-backup.json')
+    report['schedule_data']={'active':current,'backup':backup,'legacy_directory_exists':(home/'infohub').exists(),
         'same_sha256':current.get('sha256')==backup.get('sha256') if current['exists'] and backup['exists'] else None}
     for unit in EXPECTED:
         code,out,error=command('systemctl','show',unit,'-p','ActiveState','-p','SubState','-p','MainPID','-p','NRestarts','-p','UnitFileState','-p','ExecStart')
@@ -111,6 +111,7 @@ def remote(user,stage):
                     if re.search(r'(?m)^(?!\s*#).*\b(?:dashboard|infohub)(?:\.service|/|\s|$)',path.read_text(errors='replace')):
                         record(path,'possible legacy scheduled startup (contents omitted)')
                 except OSError as error:report['scan_errors'].append({'operation':str(path),'error':str(error)})
+    if (home/'infohub').exists():record(home/'infohub','remaining InfoHub directory')
     for path in (Path('/etc/default/infohub'),Path('/etc/infohub.env'),Path('/etc/infohub')):
         if path.exists():record(path,'legacy configuration')
     if len(report['releases'])!=1:record(release_root,'unexpected number of retained releases')

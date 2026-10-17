@@ -109,3 +109,48 @@ class WasteDataTests(unittest.TestCase):
         self.assertFalse(self.destination.exists())
         self.assertEqual(self.source.read_bytes(),PAYLOAD)
         self.assertEqual(list(self.destination.parent.glob('.schedule-*')),[])
+
+    def test_cleanup_preserves_verified_local_backup_before_removing_old_schedule(self):
+        plan=self.plan()
+        with patch.object(data.os,'chown'):
+            plan.apply();plan.cleanup.apply()
+        self.assertFalse(self.source.exists())
+        self.assertFalse(self.source.parent.parent.exists())
+        self.assertEqual(plan.cleanup.backup.read_bytes(),PAYLOAD)
+        self.assertEqual(self.destination.read_bytes(),PAYLOAD)
+        self.assertEqual(plan.cleanup.backup.stat().st_mode&0o777,0o600)
+
+    def test_cleanup_retains_unknown_files_and_reports_remaining_directory(self):
+        unknown=self.source.parent.parent/'notes.txt';unknown.write_text('keep')
+        plan=self.plan()
+        with patch.object(data.os,'chown'):
+            plan.apply();plan.cleanup.apply()
+        self.assertEqual(unknown.read_text(),'keep')
+        self.assertTrue(plan.cleanup.report()['directory_remaining'])
+
+    def test_cleanup_backup_conflict_does_not_remove_source(self):
+        self.create_destination()
+        backup=self.destination.parent/'garbage_schedule.infohub-backup.json'
+        backup.write_bytes(b'different')
+        with self.assertRaisesRegex(RuntimeError,'Conflicting'):self.plan()
+        self.assertEqual(self.source.read_bytes(),PAYLOAD)
+
+    def test_cleanup_source_change_does_not_remove_source(self):
+        plan=self.plan();self.source.write_bytes(b'changed')
+        with self.assertRaisesRegex(RuntimeError,'changed'):plan.cleanup.apply()
+        self.assertEqual(self.source.read_bytes(),b'changed')
+
+    def test_cleanup_failed_backup_does_not_remove_source(self):
+        plan=self.plan()
+        with patch.object(data.os,'chown'),patch.object(data.os,'link',side_effect=OSError('disk full')):
+            with self.assertRaises(OSError):plan.cleanup.apply()
+        self.assertEqual(self.source.read_bytes(),PAYLOAD)
+
+    def test_cleanup_repeat_keeps_backup_and_active_data(self):
+        plan=self.plan()
+        with patch.object(data.os,'chown'):
+            plan.apply();plan.cleanup.apply()
+        again=self.plan(configured=str(data.DEFAULT_SCHEDULE))
+        again.cleanup.apply()
+        self.assertEqual(again.cleanup.backup.read_bytes(),PAYLOAD)
+        self.assertEqual(self.destination.read_bytes(),PAYLOAD)

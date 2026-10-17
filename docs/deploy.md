@@ -49,7 +49,7 @@ harmonogramu. Aktualizacja Śmieci nie wymaga współrzędnych.
 `deploy-waste` migruje starą ścieżkę
 `/home/<user>/infohub/data/garbage_schedule.json` do
 `/var/lib/kafel-waste/garbage_schedule.json` i aktualizuje `waste.env`.
-Oryginał pozostaje nietknięty; jego dodatkowa kopia trafia do lokalnego archiwum
+Do etapu sprzątania oryginał pozostaje nietknięty; jego dodatkowa kopia trafia do lokalnego archiwum
 rollbacku jako `waste-schedule-original.json`. Docelowy katalog ma prawa `0700`,
 plik `0600` i właściciela zgodnego z kontem usługi. Instalator sprawdza format,
 odczyt jako to konto i zgodność bajtów, a SHA-256 zapisuje w raporcie.
@@ -120,3 +120,18 @@ zig build test linux weather-linux waste-linux -Doptimize=ReleaseFast
 Testy instalatora wykonują rzeczywistą logikę w izolowanym filesystemie
 z podstawionym systemd: aktualizacja każdej aplikacji, brak zmian, zmiana
 konfiguracji, rollback i zachowanie pozostałych procesów. Nie uruchamiają SSH.
+
+
+### Kopia harmonogramu i sprzątanie InfoHuba
+
+Po sprawdzeniu działania `kafel-waste`, `zig build deploy-waste` zapisuje kopię
+starego harmonogramu jako
+`/var/lib/kafel-waste/garbage_schedule.infohub-backup.json` (`0600`).
+Sprawdza zgodność bajtów i odczyt kopii jako konto usługi, dopiero potem usuwa
+`/home/<user>/infohub/data/garbage_schedule.json` oraz puste katalogi `data`
+i `infohub`. Inne pliki pozostają nietknięte i są zgłaszane w raporcie.
+Konflikt kopii lub błąd zapisu blokuje usunięcie źródła. Backup pozostaje
+niezmienny przy kolejnych wdrożeniach, również gdy aktywny harmonogram się zmieni.
+Sprzątanie wykonuje się także przy niezmienionej binarce, bez restartu usług.
+Raport `infohub_cleanup` wskazuje kopię i ewentualne pozostałości.
+Lokalne repo InfoHub i prywatne dane poza CM4 pozostają bez zmian.

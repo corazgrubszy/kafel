@@ -168,7 +168,8 @@ Opcjonalne `waste_schedule` wskazuje inny istniejący plik na CM4.
 Współrzędne są przykładowe. Instalator nie przesyła harmonogramu; należy
 przygotować go osobno według [formatu kafel-waste](apps/waste/README.md).
 Przy migracji z `infohub/data` kopiuje plik do własnego katalogu Śmieci,
-sprawdza zgodność bajtów i zachowuje oryginał oraz kopię w archiwum rollbacku.
+sprawdza zgodność bajtów i zachowuje kopię w archiwum rollbacku; źródło usuwa dopiero po
+utworzeniu dodatkowego backupu w katalogu kafel-waste (opis poniżej).
 Nie nadpisuje różniącego się pliku docelowego. Pozostałe własne ścieżki zachowuje.
 
 ```sh
@@ -410,3 +411,18 @@ To panel informacyjny do lokalnej komunikacji w ramach jednego konta,
 bez zdalnego API zarządzania i bez konfiguratora ekranowego. Protokół nie
 przesyła sterowania, grafiki ani kodu. Obecny renderer i adapter Linux mają
 konkretne wymagania sprzętowe opisane wyżej.
+
+
+### Kopia harmonogramu i sprzątanie InfoHuba
+
+Po sprawdzeniu działania `kafel-waste`, `zig build deploy-waste` zapisuje kopię
+starego harmonogramu jako
+`/var/lib/kafel-waste/garbage_schedule.infohub-backup.json` (`0600`).
+Sprawdza zgodność bajtów i odczyt kopii jako konto usługi, dopiero potem usuwa
+`/home/<user>/infohub/data/garbage_schedule.json` oraz puste katalogi `data`
+i `infohub`. Inne pliki pozostają nietknięte i są zgłaszane w raporcie.
+Konflikt kopii lub błąd zapisu blokuje usunięcie źródła. Backup pozostaje
+niezmienny przy kolejnych wdrożeniach, również gdy aktywny harmonogram się zmieni.
+Sprzątanie wykonuje się także przy niezmienionej binarce, bez restartu usług.
+Raport `infohub_cleanup` wskazuje kopię i ewentualne pozostałości.
+Lokalne repo InfoHub i prywatne dane poza CM4 pozostają bez zmian.

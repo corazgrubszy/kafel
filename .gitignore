@@ -25,3 +25,6 @@ id_ed25519
 # Real waste schedules are device-local data, not project sources.
 garbage_schedule.json
 /apps/waste/data/
+
+# Private device schedule backups.
+garbage_schedule.*.json

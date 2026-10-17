@@ -328,16 +328,18 @@ class IncrementalTests(InstallTests):
         self.assertIsNone(error,error)
         original=root/'home/operator/infohub/data/garbage_schedule.json'
         destination=root/'var/lib/kafel-waste/garbage_schedule.json'
-        self.assertEqual(destination.read_bytes(),original.read_bytes())
+        backup=root/'var/lib/kafel-waste/garbage_schedule.infohub-backup.json'
+        self.assertFalse(original.exists())
+        self.assertEqual(destination.read_bytes(),backup.read_bytes())
         self.assertIn('/var/lib/kafel-waste/garbage_schedule.json',(root/'etc/kafel/waste.env').read_text())
         report=json.loads((stage/'report.json').read_text())
         self.assertTrue(report['waste_schedule']['migration']['copied'])
         self.assertTrue(all(item['same_pid'] for item in report['untouched_services'].values()))
         for call in self.mutations(machine):self.assertEqual(call[2:],('kafel-waste.service',))
         with tarfile.open(stage/'rollback.tar.gz') as archive:
-            self.assertEqual(archive.extractfile('waste-schedule-original.json').read(),original.read_bytes())
+            self.assertEqual(archive.extractfile('waste-schedule-original.json').read(),backup.read_bytes())
             metadata=json.load(archive.extractfile('rollback.json'))
-            self.assertEqual(metadata['waste_data_migration']['sha256'],hashlib.sha256(original.read_bytes()).hexdigest())
+            self.assertEqual(metadata['waste_data_migration']['sha256'],hashlib.sha256(backup.read_bytes()).hexdigest())
 
     def test_failed_migration_deployment_restores_old_path_and_retains_both_data_copies(self):
         root,_,machine,error,_,_=self.update_existing(['kafel-waste'],legacy_schedule=True,failure='ready')
@@ -346,6 +348,16 @@ class IncrementalTests(InstallTests):
         self.assertEqual((root/'var/lib/kafel-waste/garbage_schedule.json').read_bytes(),
                          (root/'home/operator/infohub/data/garbage_schedule.json').read_bytes())
         for call in self.mutations(machine):self.assertEqual(call[2:],('kafel-waste.service',))
+
+    def test_unchanged_waste_cleans_old_schedule_without_restart(self):
+        root,stage,machine,error,_,_=self.update_existing(['kafel-waste'])
+        self.assertIsNone(error,error)
+        self.assertEqual(self.mutations(machine),[])
+        report=json.loads((stage/'report.json').read_text())
+        self.assertEqual(report['changed'],[])
+        self.assertTrue(report['infohub_cleanup']['schedule_removed'])
+        self.assertFalse(report['infohub_cleanup']['directory_remaining'])
+        self.assertTrue((root/'var/lib/kafel-waste/garbage_schedule.infohub-backup.json').is_file())
 
     def test_conflicting_schedule_does_not_stop_any_service(self):
         root,_,machine,error,_,_=self.update_existing(['kafel-waste'],legacy_schedule=True,conflicting_schedule=True)

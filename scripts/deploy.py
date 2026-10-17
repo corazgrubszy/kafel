@@ -178,7 +178,12 @@ def deploy(args):
                             print('  ! '+unit+' · PID zmienił się poza zakresem wdrożenia',flush=True)
                     schedule=report.get('waste_schedule')
                     if schedule and schedule.get('migration'):
-                        print('  ✓ Harmonogram: '+schedule['path']+' · SHA-256 zgodne, oryginał zachowany',flush=True)
+                        print('  ✓ Harmonogram: '+schedule['path']+' · SHA-256 zgodne',flush=True)
+                    cleanup=report.get('infohub_cleanup')
+                    if cleanup and cleanup.get('schedule_removed'):
+                        print('  ✓ Stary harmonogram usunięty · kopia: '+cleanup['schedule_backup'],flush=True)
+                    if cleanup and cleanup.get('directory_remaining'):
+                        print('  ! Katalog infohub zawiera inne pliki; pozostawiono je bez zmian.',flush=True)
                     if report.get('display',{}).get('reboot_required'):
                         print('  ! HDMI bez monitora skonfigurowane; wymaga restartu CM4. Teraz LCD chroni odłączenie fbcon.',flush=True)
             print(f'\n✓ Gotowe · {time.monotonic()-started:.1f} s', flush=True)
