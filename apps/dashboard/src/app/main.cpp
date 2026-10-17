@@ -1,3 +1,4 @@
+#include "kafel_build_info.h"
 #include "dashboard/dashboard_view.hpp"
 #include "services/service_registry.hpp"
 #include "platform/linux/service_socket.hpp"

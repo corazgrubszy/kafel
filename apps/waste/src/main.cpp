@@ -1,3 +1,4 @@
+#include "kafel_build_info.h"
 #include "schedule.hpp"
 #include "packet.hpp"
 #include "platform/unix_publisher.hpp"

@@ -53,7 +53,12 @@ fn linkHttp(b: *std.Build, module: *std.Build.Module) void {
     }
 }
 pub fn build(b: *std.Build) void {
-    const revision = std.mem.trim(u8, b.run(&.{ "python3", "scripts/build_revision.py", "." }), "\r\n ");
+    const identity = b.addSystemCommand(&.{"python3"});
+    identity.addFileArg(b.path("scripts/build_revision.py"));
+    identity.addArg("--header");
+    identity.addDirectoryArg(b.path("."));
+    identity.has_side_effects = true; // Git state must be read even with a cached build graph.
+    const identity_header = identity.captureStdOut(.{ .basename = "kafel_build_info.h" });
     const optimize = b.standardOptimizeOption(.{});
     const target = b.standardTargetOptions(.{});
     const weather = b.addExecutable(.{ .name = "kafel-weather", .root_module = b.createModule(.{ .target = target, .optimize = optimize }) });
@@ -178,7 +183,7 @@ pub fn build(b: *std.Build) void {
     b.step("linux-tests", "Build ARM64 socket integration tests").dependOn(&installed_socket.step);
     // A macro keeps identity in each executable without runtime Git or allocations.
     for ([_]*std.Build.Step.Compile{ linux, weather, weather_arm, daemon_probe, waste, waste_arm, waste_daemon }) |app| {
-        app.root_module.addCMacro("KAFEL_GIT_REVISION", b.fmt("\"{s}\"", .{revision}));
+        app.root_module.addIncludePath(identity_header.dirname());
     }
 
 }

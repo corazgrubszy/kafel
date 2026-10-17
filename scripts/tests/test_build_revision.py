@@ -38,3 +38,11 @@ class RevisionTests(unittest.TestCase):
         self.git('-c','user.name=Test','-c','user.email=test@example.invalid','commit','-qm','next')
         self.assertNotEqual(module.revision(self.root),self.head)
         self.assertEqual(module.revision(self.root),self.git('rev-parse','HEAD').strip())
+
+    def test_generated_header_tracks_git_state_on_each_invocation(self):
+        script=Path(__file__).resolve().parents[1]/'build_revision.py'
+        def header():
+            return subprocess.check_output(['python3',str(script),'--header',str(self.root)],text=True)
+        self.assertEqual(header(),'#define KAFEL_GIT_REVISION "'+self.head+'"\n')
+        (self.root/'source.cpp').write_text('changed')
+        self.assertEqual(header(),'#define KAFEL_GIT_REVISION "'+self.head+'-dirty"\n')

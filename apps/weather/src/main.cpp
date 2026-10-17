@@ -1,3 +1,4 @@
+#include "kafel_build_info.h"
 #include "weather.hpp"
 #include "platform/unix_publisher.hpp"
 #include "source.hpp"

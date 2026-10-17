@@ -20,4 +20,7 @@ def revision(root):
     except (OSError,subprocess.SubprocessError):return 'unknown'
 
 
-if __name__=='__main__':print(revision(Path(sys.argv[1])))
+if __name__=='__main__':
+    if len(sys.argv)==3 and sys.argv[1]=='--header':
+        print('#define KAFEL_GIT_REVISION "'+revision(Path(sys.argv[2]))+'"')
+    else:print(revision(Path(sys.argv[1])))
