@@ -19,6 +19,19 @@ są osobnymi procesami i można je aktualizować niezależnie.
 Kafel zastępuje projekty `cm4stack-dashboard` i `infohub`. To repo zawiera
 aktualną implementację C++; do budowania i działania nie potrzebuje ich źródeł.
 
+## Podgląd
+
+<p>
+  <img src="docs/images/dashboard.png" width="240" height="320" alt="Zegar i kafle CPU, RAM oraz eMMC">
+  <img src="docs/images/weather.png" width="240" height="320" alt="Dwukolumnowa Pogoda i jednokolumnowy kafel Śmieci">
+  <img src="docs/images/waste.png" width="240" height="320" alt="Samodzielna usługa Śmieci obok metryk systemowych">
+</p>
+
+Obrazy 240×320 pochodzą z renderera aplikacji i używają przykładowych danych.
+Od lewej: metryki systemowe, Pogoda ze Śmieciami oraz Śmieci jako jedyna usługa.
+
+![Przewijanie wstążki od metryk systemowych do usług i z powrotem](docs/images/ribbon.gif)
+
 ## Co widać na ekranie
 
 - **Zegar:** HH:MM z animowanym przesuwaniem cyfr; data z pełną nazwą dnia
@@ -77,6 +90,19 @@ zig build preview -Dweather=true -Doutput=/tmp/kafel-weather.ppm -Doptimize=Rele
 `preview` zapisuje PPM 240×320 przy użyciu tego samego widoku i renderera co
 aplikacja. Korzysta ze stałych danych przykładowych i nie otwiera framebuffera.
 Podgląd nie jest zrzutem bieżącego stanu urządzenia.
+Scenę Śmieci można wybrać przez `-Dscene=waste`.
+
+Galerię PNG/GIF odtworzysz poleceniem:
+
+```sh
+python3 scripts/render_previews.py
+```
+
+Eksport wymaga Pillow w używanym interpreterze Python. Wszystkie piksele
+rysuje C++: Pillow jedynie koduje obrazy. GIF ma 6 s i źródłowe klatki co 40 ms;
+syntetyczne gesty przechodzą przez ten sam kontroler wstążki co dotyk.
+Polecenie nie łączy się z CM4, nie pobiera danych i nie wdraża aplikacji.
+
 
 ## Budowanie
 

@@ -161,8 +161,13 @@ pub fn build(b: *std.Build) void {
     preview.root_module.addCSourceFile(.{ .file = b.path("apps/dashboard/examples/preview.cpp"), .flags = flags });
     const preview_run = b.addRunArtifact(preview);
     preview_run.addArg(b.option([]const u8, "output", "Preview PPM path") orelse "/tmp/kafel.ppm");
-    if (b.option(bool, "weather", "Show weather tile") orelse false) preview_run.addArg("weather");
+    const scene = b.option([]const u8, "scene", "Preview scene: system, weather or waste");
+    const show_weather = b.option(bool, "weather", "Show weather tile") orelse false;
+    if (scene) |name| preview_run.addArg(name) else if (show_weather) preview_run.addArg("weather");
     b.step("preview", "Render current dashboard at 240x320").dependOn(&preview_run.step);
+    const assets = b.addRunArtifact(preview);
+    assets.addArgs(&.{ "--assets", b.option([]const u8, "preview-dir", "Existing directory for gallery PPMs") orelse "/tmp" });
+    b.step("preview-assets", "Render gallery scenes and ribbon frames with synthetic data").dependOn(&assets.step);
     const socket = b.addExecutable(.{ .name = "kafel-socket-tests", .root_module = b.createModule(.{ .target = linux.root_module.resolved_target.?, .optimize = .ReleaseSmall }) });
     socket.root_module.link_libcpp = true;
     socket.root_module.addIncludePath(b.path("apps/dashboard/src"));
