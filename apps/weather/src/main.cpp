@@ -21,7 +21,7 @@ int main(int argc, char** argv) {
     using namespace kafel::weather;
     using namespace kafel::unix_transport;
     if (argc == 2 && std::string_view(argv[1]) == "--version") {
-        std::puts("kafel-weather 0.1.0 DASH/4"); return 0;
+        std::puts("kafel-weather 0.1.0 DASH/4 git=" KAFEL_GIT_REVISION); return 0;
     }
     if (argc != 1) { std::fprintf(stderr, "usage: kafel-weather [--version]\n"); return 2; }
     const auto url = forecast_url(environment("KAFEL_WEATHER_LATITUDE"), environment("KAFEL_WEATHER_LONGITUDE"));

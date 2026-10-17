@@ -53,6 +53,7 @@ fn linkHttp(b: *std.Build, module: *std.Build.Module) void {
     }
 }
 pub fn build(b: *std.Build) void {
+    const revision = std.mem.trim(u8, b.run(&.{ "python3", "scripts/build_revision.py", "." }), "\r\n ");
     const optimize = b.standardOptimizeOption(.{});
     const target = b.standardTargetOptions(.{});
     const weather = b.addExecutable(.{ .name = "kafel-weather", .root_module = b.createModule(.{ .target = target, .optimize = optimize }) });
@@ -175,4 +176,9 @@ pub fn build(b: *std.Build) void {
     socket.root_module.addCSourceFiles(.{ .files = &.{ "apps/dashboard/tests/service_socket_linux_test.cpp", "apps/dashboard/src/platform/linux/service_socket.cpp", "libs/dash-protocol/src/service_registry.cpp" }, .flags = flags });
     const installed_socket = b.addInstallArtifact(socket, .{ .dest_dir = .{ .override = .{ .custom = "linux-arm64" } } });
     b.step("linux-tests", "Build ARM64 socket integration tests").dependOn(&installed_socket.step);
+    // A macro keeps identity in each executable without runtime Git or allocations.
+    for ([_]*std.Build.Step.Compile{ linux, weather, weather_arm, daemon_probe, waste, waste_arm, waste_daemon }) |app| {
+        app.root_module.addCMacro("KAFEL_GIT_REVISION", b.fmt("\"{s}\"", .{revision}));
+    }
+
 }

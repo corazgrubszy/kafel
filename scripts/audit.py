@@ -25,6 +25,13 @@ def command(*args):
     result=subprocess.run(args,text=True,capture_output=True,timeout=20)
     return result.returncode,result.stdout.strip(),result.stderr.strip()
 
+def binary_identity(path):
+    code,out,error=command(str(path),'--version')
+    if code:raise RuntimeError('Cannot read binary version: '+(error or str(path)))
+    match=re.search(r'(?:^| )git=([0-9a-f]{40}(?:-dirty)?|unknown)(?:$| )',out)
+    return {'version':out,'git_revision':match.group(1) if match else None}
+
+
 def remote(user,stage):
     if os.geteuid()!=0: raise RuntimeError('Audit requires sudo to avoid silently skipping private directories')
     uid=pwd.getpwnam(user).pw_uid
@@ -86,6 +93,13 @@ def remote(user,stage):
         if path.is_file():
             report['binaries'][name]={'path':str(path.resolve()),'sha256':hashlib.sha256(path.read_bytes()).hexdigest(),
                 'uid':path.stat().st_uid,'mode':oct(path.stat().st_mode&0o777)}
+            try:
+                report['binaries'][name].update(binary_identity(path))
+                pid=report['services'].get(name+'.service',{}).get('MainPID','0')
+                if pid.isdigit() and int(pid)>0:
+                    report['binaries'][name]['running']=binary_identity(Path('/proc')/pid/'exe')
+            except RuntimeError as error:
+                report['scan_errors'].append({'operation':'version '+name,'error':str(error)})
         else:report['scan_errors'].append({'operation':str(path),'error':'missing binary'})
     release_root=Path('/opt/kafel/releases')
     report['releases']=sorted(path.name for path in release_root.iterdir()) if release_root.is_dir() else []

@@ -426,3 +426,17 @@ niezmienny przy kolejnych wdrożeniach, również gdy aktywny harmonogram się z
 Sprzątanie wykonuje się także przy niezmienionej binarce, bez restartu usług.
 Raport `infohub_cleanup` wskazuje kopię i ewentualne pozostałości.
 Lokalne repo InfoHub i prywatne dane poza CM4 pozostają bez zmian.
+
+
+### Identyfikacja działającego kodu
+
+Każda aplikacja wypisuje przez `--version` również `git=<pełny SHA commita>`.
+Zig ustala tę wartość podczas budowania, bez Git na urządzeniu i bez daty
+kompilacji. Przy zmianach śledzonych lub nowych, nieignorowanych plikach dodaje
+`-dirty`; prywatne pliki ignorowane przez Git nie zmieniają oznaczenia.
+Build z archiwum bez `.git` jawnie pokazuje `git=unknown`.
+Po commicie należy ponownie zbudować binarki, by otrzymać jego identyfikator.
+`python3 scripts/audit.py` zapisuje `version` i `git_revision` w `binaries`.
+Pole `running` zawiera identyfikację faktycznie działającego procesu przez
+`/proc/<pid>/exe`, niezależnie od pliku obecnie wskazywanego przez symlink wydania.
+Starsze binarki bez oznaczenia mają `git_revision: null`.

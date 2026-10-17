@@ -17,7 +17,7 @@ const char* environment(const char* name,const char* fallback="") {
 int main(int argc,char** argv) {
     using namespace kafel::waste;
     using namespace kafel::unix_transport;
-    if(argc==2&&std::string_view(argv[1])=="--version") {std::puts("kafel-waste 0.1.0 DASH/4");return 0;}
+    if(argc==2&&std::string_view(argv[1])=="--version") {std::puts("kafel-waste 0.1.0 DASH/4 git=" KAFEL_GIT_REVISION);return 0;}
     const bool check=argc==3&&std::string_view(argv[1])=="--check";
     if(argc!=1&&!check) {std::fprintf(stderr,"usage: kafel-waste [--version|--check FILE]\n");return 2;}
     const char* path=check?argv[2]:environment("KAFEL_WASTE_SCHEDULE");

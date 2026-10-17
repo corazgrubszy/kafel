@@ -61,7 +61,7 @@ int main(int argc, char** argv) {
         for(int i=1;i<argc;++i) arguments.emplace_back(argv[i]);
         const auto config=kafel::app::parse_config(arguments,[](const char* name)->const char* {return std::getenv(name);});
         using Command=kafel::app::Command;
-        if(config.command==Command::Version) {std::puts("kafel-dashboard 0.3.0-dev");return 0;}
+        if(config.command==Command::Version) {std::puts("kafel-dashboard 0.3.0-dev git=" KAFEL_GIT_REVISION);return 0;}
         if(config.command==Command::Help) {
             std::puts("usage: kafel-dashboard [--check|--check-input|--system-info|--display-info|--version]\n"
                       "  --fb=auto|/dev/fbN --touch=auto|/dev/input/eventN|off\n"

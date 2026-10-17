@@ -1,4 +1,5 @@
 """Exercise the real HttpClient -> Open-Meteo decoder -> DASH/4 path offline."""
+import re
 import http.server
 import subprocess
 import sys
@@ -63,4 +64,5 @@ with tempfile.TemporaryDirectory(prefix='kafel-weather-daemon-') as directory:
     assert result.returncode == 2
     result = subprocess.run([sys.argv[2], '--version'], env=environment, capture_output=True, timeout=3)
     assert result.returncode == 0 and b'DASH/4' in result.stdout
+    assert re.search(rb' git=(?:[0-9a-f]{40}(?:-dirty)?|unknown)\n$',result.stdout)
     print('PASS daemon configuration and version', flush=True)

@@ -1,4 +1,5 @@
 """Real daemon and Unix inbox; synthetic fixture only, never the user's schedule."""
+import re
 import datetime
 import hashlib
 import json
@@ -45,5 +46,7 @@ with tempfile.TemporaryDirectory(prefix='kwaste-',dir='/tmp') as directory:
             if process.poll() is None:process.kill();process.communicate()
     environment['KAFEL_WASTE_SPAN']='3'
     assert subprocess.run([binary],env=environment,capture_output=True,timeout=3).returncode==2
-    assert subprocess.run([binary,'--version'],capture_output=True,timeout=3).returncode==0
+    version=subprocess.run([binary,'--version'],capture_output=True,timeout=3)
+    assert version.returncode==0
+    assert re.search(rb' git=(?:[0-9a-f]{40}(?:-dirty)?|unknown)\n$',version.stdout)
     print('PASS waste missing file stays alive, configuration validation and diagnostic check')
