@@ -7,6 +7,7 @@ import os
 from pathlib import Path
 import pwd
 import re
+import shlex
 import subprocess
 import sys
 import tempfile
@@ -28,7 +29,9 @@ def remote(user,stage):
     if os.geteuid()!=0: raise RuntimeError('Audit requires sudo to avoid silently skipping private directories')
     uid=pwd.getpwnam(user).pw_uid
     home=Path(pwd.getpwnam(user).pw_dir)
-    protected=home/'infohub/data'
+    protected=Path('/var/lib/kafel-waste')
+    legacy_backup=home/'infohub/data'
+    protected_directories={protected,legacy_backup}
     report={'services':{},'legacy_units':[],'artifacts':[],'scan_errors':[],
             'preserved_schedule':{'path':str(protected),'exists':protected.is_dir()},'binaries':{},'scan_roots':[]}
     state=Path('/run/kafel-display/status.json')
@@ -36,6 +39,25 @@ def remote(user,stage):
         'boot_display_parameters':[token for token in Path('/proc/cmdline').read_text().split() if token.startswith(('console=','fbcon=','video='))],
         'framebuffers':{p.name:(p/'name').read_text().strip() for p in Path('/sys/class/graphics').glob('fb[0-9]*')},
         'console_bindings':{p.parent.name:p.read_text().strip() for p in Path('/sys/class/vtconsole').glob('vtcon*/bind')}}
+    schedule=Path('/var/lib/kafel-waste/garbage_schedule.json')
+    environment=Path('/etc/kafel/waste.env')
+    if environment.is_file():
+        for line in environment.read_text().splitlines():
+            key,sep,value=line.partition('=')
+            if sep and key=='KAFEL_WASTE_SCHEDULE':
+                parts=shlex.split(value)
+                if len(parts)==1:schedule=Path(parts[0])
+    def schedule_metadata(path):
+        result={'path':str(path),'exists':path.is_file() and not path.is_symlink()}
+        if result['exists']:
+            metadata=path.stat()
+            result.update(sha256=hashlib.sha256(path.read_bytes()).hexdigest(),bytes=metadata.st_size,
+                          uid=metadata.st_uid,mode=oct(metadata.st_mode&0o777))
+        return result
+    current=schedule_metadata(schedule)
+    backup=schedule_metadata(legacy_backup/'garbage_schedule.json')
+    report['schedule_data']={'active':current,'legacy_backup':backup,
+        'same_sha256':current.get('sha256')==backup.get('sha256') if current['exists'] and backup['exists'] else None}
     for unit in EXPECTED:
         code,out,error=command('systemctl','show',unit,'-p','ActiveState','-p','SubState','-p','MainPID','-p','NRestarts','-p','UnitFileState','-p','ExecStart')
         report['services'][unit]=dict(line.split('=',1) for line in out.splitlines() if '=' in line)
@@ -56,15 +78,15 @@ def remote(user,stage):
         else:report['scan_errors'].append({'operation':str(path),'error':'missing binary'})
     release_root=Path('/opt/kafel/releases')
     report['releases']=sorted(path.name for path in release_root.iterdir()) if release_root.is_dir() else []
-    report['scope']={'maximum_directory_depth':6,'excluded_names':['.git','.cache','node_modules','.zig-cache'],'excluded_schedule':str(protected)}
+    report['scope']={'maximum_directory_depth':6,'excluded_names':['.git','.cache','node_modules','.zig-cache'],'excluded_schedule':[str(path) for path in sorted(protected_directories)]}
     def record(path,reason): report['artifacts'].append({'path':str(path),'reason':reason})
     def visit(root,depth=0):
-        if not root.exists() or root.is_symlink() or root==protected:return
+        if not root.exists() or root.is_symlink() or root in protected_directories:return
         try: entries=list(root.iterdir())
         except OSError as error:
             report['scan_errors'].append({'operation':str(root),'error':str(error)});return
         for path in entries:
-            if path==protected or path==stage:continue
+            if path in protected_directories or path==stage:continue
             if path.name in ('.git','.cache','node_modules','.zig-cache'):continue
             if path.is_symlink():
                 if legacy_unit_link(path):record(path,'legacy service symlink')

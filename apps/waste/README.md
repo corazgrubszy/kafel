@@ -18,15 +18,28 @@ ARM64/musl `zig-out/linux-arm64/kafel-waste`. `deploy-waste` testuje i aktualizu
 dashboardu i Pogody. `zig build deploy` aktualizuje cały zestaw, pomijając
 niezmienione aplikacje. Szczegóły: [wdrożenie](../../docs/deploy.md).
 
-Domyślnie instalator korzysta z istniejącego pliku na CM4:
-`/home/<user>/infohub/data/garbage_schedule.json`. **Nie kopiuje, nie przenosi,
-nie nadpisuje ani nie usuwa tego pliku i katalogu `data`.** Jeszcze przed
-zatrzymaniem usług sprawdza odczyt i format jako użytkownik demona.
+Dane należą do usługi i pozostają poza katalogami wydań:
+`/var/lib/kafel-waste/garbage_schedule.json`. Jednostka systemd używa
+`StateDirectory=kafel-waste` z prawami katalogu `0700`.
+
+Przy aktualizacji starej konfiguracji instalator kopiuje harmonogram z
+`/home/<user>/infohub/data/garbage_schedule.json`, zachowując oryginał bez zmian.
+Przed zatrzymaniem Śmieci sprawdza format jako konto demona. Kopię zapisuje
+atomowo, bez nadpisywania istniejącego pliku, z prawami `0600`; potwierdza
+zgodność bajtów i ponownie sprawdza odczyt jako konto usługi. Różne dane w obu
+lokalizacjach przerywają wdrożenie przed restartem. Identyczna kopia jest używana
+ponownie. Kolejne wdrożenia nie przywracają starej kopii nad aktualnym plikiem.
+
+Raport zawiera `waste_schedule.path`, SHA-256 i wynik migracji. Lokalne,
+ignorowane przez Git archiwum `deploy-results/<czas>/rollback.tar.gz` zawiera
+oryginał jako `waste-schedule-original.json`. Rollback przywraca poprzednią
+konfigurację i usługę, zachowując obie kopie danych. Przy świeżej instalacji
+bez starego harmonogramu przygotuj plik osobno, dostępny dla konta usługi.
 
 Konfiguracja w `/etc/kafel/waste.env`:
 
 ```sh
-KAFEL_WASTE_SCHEDULE="/absolute/path/to/garbage_schedule.json"
+KAFEL_WASTE_SCHEDULE="/var/lib/kafel-waste/garbage_schedule.json"
 KAFEL_WASTE_SPAN=1
 ```
 

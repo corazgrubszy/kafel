@@ -81,8 +81,9 @@ class InstallTests(unittest.TestCase):
         for name in installer.NAMES:
             (stage/name).write_bytes(b'new-'+name.encode())
             (stage/(name+'.service.in')).write_bytes((ROOT/'packaging/systemd'/(name+'.service.in')).read_bytes())
+        (stage/'waste_data.py').write_bytes((ROOT/'scripts/waste_data.py').read_bytes())
         (stage/'display_console.py').write_bytes((ROOT/'scripts/display_console.py').read_bytes())
-        manifest={'display_helper_sha256':hashlib.sha256((stage/'display_console.py').read_bytes()).hexdigest(),'binaries':{name:hashlib.sha256((stage/name).read_bytes()).hexdigest() for name in installer.NAMES}}
+        manifest={'waste_data_sha256':hashlib.sha256((stage/'waste_data.py').read_bytes()).hexdigest(),'display_helper_sha256':hashlib.sha256((stage/'display_console.py').read_bytes()).hexdigest(),'binaries':{name:hashlib.sha256((stage/name).read_bytes()).hexdigest() for name in installer.NAMES}}
         if failure=='checksum':manifest['binaries'][installer.NAMES[0]]='0'*64
         (stage/'manifest.json').write_text(json.dumps(manifest))
         for unit in installer.OLD:
@@ -121,7 +122,7 @@ class InstallTests(unittest.TestCase):
                 original(release)
                 raise RuntimeError('injected cleanup failure')
             job.cleanup=fail_cleanup
-        account=SimpleNamespace(pw_dir='/home/operator',pw_uid=os.getuid())
+        account=SimpleNamespace(pw_dir='/home/operator',pw_uid=os.getuid(),pw_gid=os.getgid())
         with patch.object(installer.pwd,'getpwnam',return_value=account),patch.object(installer.os,'chown'),patch.object(installer.time,'sleep'),contextlib.redirect_stdout(io.StringIO()):
             try:job.install();error=None
             except Exception as caught:error=caught
@@ -202,9 +203,14 @@ class InstallTests(unittest.TestCase):
             with self.assertRaises(ValueError):installer.coordinate(value,90)
 
 class IncrementalTests(InstallTests):
-    def update_existing(self, selected, changed=(), failure='', config=None, boot=False, helper_changed=False):
+    def update_existing(self, selected, changed=(), failure='', config=None, boot=False, helper_changed=False, legacy_schedule=False, conflicting_schedule=False):
         root,stage,machine,error = self.exercise()
         self.assertIsNone(error, error)
+        if legacy_schedule:
+            schedule=root/'var/lib/kafel-waste/garbage_schedule.json'
+            schedule.unlink()
+            (root/'etc/kafel/waste.env').write_text('KAFEL_WASTE_SCHEDULE="/home/operator/infohub/data/garbage_schedule.json"\nKAFEL_WASTE_SPAN=1\n')
+            if conflicting_schedule:schedule.write_text('{"timezone":"Europe/Warsaw","pickups":[]}')
         if boot:
             path=root/'boot/firmware/cmdline.txt';path.parent.mkdir(parents=True)
             path.write_text('root=PARTUUID=EXAMPLE rootwait console=tty2 fbcon=map\n')
@@ -219,11 +225,11 @@ class IncrementalTests(InstallTests):
             (stage/(name+'.service.in')).unlink()
         for name in selected:
             (stage/name).write_bytes(before[name]+(b'-update' if name in changed else b''))
-        manifest = {'display_helper_sha256':hashlib.sha256((stage/'display_console.py').read_bytes()).hexdigest(),'selected':list(selected), 'binaries':{n:hashlib.sha256((stage/n).read_bytes()).hexdigest() for n in selected}, **(config or {})}
+        manifest = {'waste_data_sha256':hashlib.sha256((stage/'waste_data.py').read_bytes()).hexdigest(),'display_helper_sha256':hashlib.sha256((stage/'display_console.py').read_bytes()).hexdigest(),'selected':list(selected), 'binaries':{n:hashlib.sha256((stage/n).read_bytes()).hexdigest() for n in selected}, **(config or {})}
         (stage/'manifest.json').write_text(json.dumps(manifest))
         machine.calls.clear();machine.failure=failure
         job=installer.Installer(stage,'operator',root,machine)
-        account=SimpleNamespace(pw_dir='/home/operator',pw_uid=os.getuid())
+        account=SimpleNamespace(pw_dir='/home/operator',pw_uid=os.getuid(),pw_gid=os.getgid())
         with patch.object(installer.pwd,'getpwnam',return_value=account),patch.object(installer.os,'chown'),patch.object(installer.time,'sleep'),contextlib.redirect_stdout(io.StringIO()):
             try:job.install();error=None
             except Exception as caught:error=caught
@@ -316,5 +322,35 @@ class IncrementalTests(InstallTests):
             _,_,machine,error,_,_=self.update_existing(selected,config={'dashboard_socket':'/tmp/other/status.sock'})
             self.assertIsNotNone(error)
             self.assertEqual(self.mutations(machine),[])
+
+    def test_legacy_schedule_migrates_with_verified_backup_and_no_other_restarts(self):
+        root,stage,machine,error,_,_=self.update_existing(['kafel-waste'],legacy_schedule=True)
+        self.assertIsNone(error,error)
+        original=root/'home/operator/infohub/data/garbage_schedule.json'
+        destination=root/'var/lib/kafel-waste/garbage_schedule.json'
+        self.assertEqual(destination.read_bytes(),original.read_bytes())
+        self.assertIn('/var/lib/kafel-waste/garbage_schedule.json',(root/'etc/kafel/waste.env').read_text())
+        report=json.loads((stage/'report.json').read_text())
+        self.assertTrue(report['waste_schedule']['migration']['copied'])
+        self.assertTrue(all(item['same_pid'] for item in report['untouched_services'].values()))
+        for call in self.mutations(machine):self.assertEqual(call[2:],('kafel-waste.service',))
+        with tarfile.open(stage/'rollback.tar.gz') as archive:
+            self.assertEqual(archive.extractfile('waste-schedule-original.json').read(),original.read_bytes())
+            metadata=json.load(archive.extractfile('rollback.json'))
+            self.assertEqual(metadata['waste_data_migration']['sha256'],hashlib.sha256(original.read_bytes()).hexdigest())
+
+    def test_failed_migration_deployment_restores_old_path_and_retains_both_data_copies(self):
+        root,_,machine,error,_,_=self.update_existing(['kafel-waste'],legacy_schedule=True,failure='ready')
+        self.assertIsNotNone(error)
+        self.assertIn('/home/operator/infohub/data/garbage_schedule.json',(root/'etc/kafel/waste.env').read_text())
+        self.assertEqual((root/'var/lib/kafel-waste/garbage_schedule.json').read_bytes(),
+                         (root/'home/operator/infohub/data/garbage_schedule.json').read_bytes())
+        for call in self.mutations(machine):self.assertEqual(call[2:],('kafel-waste.service',))
+
+    def test_conflicting_schedule_does_not_stop_any_service(self):
+        root,_,machine,error,_,_=self.update_existing(['kafel-waste'],legacy_schedule=True,conflicting_schedule=True)
+        self.assertIsNotNone(error)
+        self.assertEqual(self.mutations(machine),[])
+        self.assertIn('Europe/Warsaw',(root/'var/lib/kafel-waste/garbage_schedule.json').read_text())
 
 if __name__=='__main__':unittest.main()

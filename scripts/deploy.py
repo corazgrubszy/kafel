@@ -122,6 +122,8 @@ def deploy(args):
             manifest = {'selected': list(selected), 'binaries': {n: arm64_digest(p) for n,p in binaries.items()}, **args.configuration}
             if 'kafel-dashboard' in selected:
                 manifest['display_helper_sha256']=hashlib.sha256((ROOT/'scripts/display_console.py').read_bytes()).hexdigest()
+            if 'kafel-waste' in selected:
+                manifest['waste_data_sha256']=hashlib.sha256((ROOT/'scripts/waste_data.py').read_bytes()).hexdigest()
             for name, path in binaries.items():
                 print(f'  ✓ {name} · {path.stat().st_size/1024:.0f} KiB', flush=True)
             target = args.user+'@'+args.host
@@ -142,6 +144,7 @@ def deploy(args):
                             print(('  · '+name+' · binarka bez zmian, bez transferu') if unchanged else ('  ✓ '+name+' · przesłano'), flush=True)
                         for source in (ROOT/'scripts/install.py', local/'manifest.json',
                                        *((ROOT/'scripts/display_console.py',) if 'kafel-dashboard' in selected else ()),
+                                       *((ROOT/'scripts/waste_data.py',) if 'kafel-waste' in selected else ()),
                                        *(ROOT/'packaging/systemd'/(name+'.service.in') for name in selected)):
                             subprocess.run([*scp, str(source), target+':'+stage+'/'+source.name], stdout=log, stderr=log, check=True)
                         print('\n[3/4] Weryfikacja i instalacja wybranych aplikacji', flush=True)
@@ -173,6 +176,9 @@ def deploy(args):
                             print('  ✓ '+unit+' · PID '+value['after_pid']+' bez zmian',flush=True)
                         elif not value['same_pid']:
                             print('  ! '+unit+' · PID zmienił się poza zakresem wdrożenia',flush=True)
+                    schedule=report.get('waste_schedule')
+                    if schedule and schedule.get('migration'):
+                        print('  ✓ Harmonogram: '+schedule['path']+' · SHA-256 zgodne, oryginał zachowany',flush=True)
                     if report.get('display',{}).get('reboot_required'):
                         print('  ! HDMI bez monitora skonfigurowane; wymaga restartu CM4. Teraz LCD chroni odłączenie fbcon.',flush=True)
             print(f'\n✓ Gotowe · {time.monotonic()-started:.1f} s', flush=True)

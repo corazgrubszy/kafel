@@ -105,3 +105,8 @@ odłącza. Nie ma stale działającego procesu Python. Operacje są weryfikowane
 a częściowy błąd przywraca wcześniejszy stan i blokuje start dashboardu.
 Przy normalnym stopie izolacja pozostaje, także przy awarii procesu.
 Parametry boot są częścią transakcji instalatora, nie pętli renderującej.
+
+Harmonogram Śmieci jest trwałym stanem usługi w `/var/lib/kafel-waste`,
+nie częścią wydania binarnego. Migracja danych należy do instalatora; demon
+nadal jedynie odczytuje plik. Backup źródła i rollback konfiguracji opisuje
+[dokumentacja wdrażania](deploy.md).

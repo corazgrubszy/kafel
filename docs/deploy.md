@@ -46,9 +46,18 @@ Instalator zachowuje `/etc/kafel/weather.env` i `/etc/kafel/waste.env`, chyba
 nie wymaga współrzędnych ani harmonogramu. Aktualizacja pogody nie czyta
 harmonogramu. Aktualizacja Śmieci nie wymaga współrzędnych.
 
-Harmonogram `/home/<user>/infohub/data/garbage_schedule.json` pozostaje w swoim
-miejscu. Instalator tylko sprawdza go jako konto usługi przed zmianą procesów;
-nie zmienia zawartości ani praw dostępu.
+`deploy-waste` migruje starą ścieżkę
+`/home/<user>/infohub/data/garbage_schedule.json` do
+`/var/lib/kafel-waste/garbage_schedule.json` i aktualizuje `waste.env`.
+Oryginał pozostaje nietknięty; jego dodatkowa kopia trafia do lokalnego archiwum
+rollbacku jako `waste-schedule-original.json`. Docelowy katalog ma prawa `0700`,
+plik `0600` i właściciela zgodnego z kontem usługi. Instalator sprawdza format,
+odczyt jako to konto i zgodność bajtów, a SHA-256 zapisuje w raporcie.
+Konflikt różnych plików zatrzymuje instalację przed zmianą procesów.
+Rollback zachowuje dane i przywraca poprzednią konfigurację. Kolejne wdrożenia
+korzystają już z nowej ścieżki; własne ścieżki poza starym katalogiem są zachowane.
+Ta migracja nie występuje przy `deploy-dashboard` ani `deploy-weather`.
+Szczegóły i przygotowanie świeżej instalacji: [kafel-waste](../apps/waste/README.md).
 
 ## Pomijanie zmian i izolacja
 

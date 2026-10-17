@@ -3,6 +3,7 @@
 import argparse
 import fcntl
 import importlib.util
+import io
 import sys
 sys.dont_write_bytecode = True
 import stat
@@ -79,6 +80,7 @@ class Installer:
         self.display_report = {}
         self.waste_environment = b''
         self.schedule_path = None
+        self.waste_plan = None
         self.saved = {}
         self.states = {}
         self.legacy_binaries = []
@@ -218,14 +220,23 @@ class Installer:
                     parts=shlex.split(value)
                     if len(parts)==1: values[key]=parts[0]
         home=Path(pwd.getpwnam(self.user).pw_dir)
-        path=config.get('waste_schedule') or values.get('KAFEL_WASTE_SCHEDULE') or str(home/'infohub/data/garbage_schedule.json')
+        path=config.get('waste_schedule') or values.get('KAFEL_WASTE_SCHEDULE') or '/var/lib/kafel-waste/garbage_schedule.json'
         span=config.get('waste_span') or values.get('KAFEL_WASTE_SPAN') or '1'
         if span not in ('1','2') or not Path(path).is_absolute() or any(c in path for c in '\n\r\x00'):
             raise RuntimeError('Invalid waste schedule path or span')
-        actual=self.root/Path(path).relative_to('/')
-        # Validate as the actual daemon account, not merely as root. No writes.
-        self.command('runuser','-u',self.user,'--',str(self.stage/'kafel-waste'),'--check',str(actual))
-        self.schedule_path=actual
+        helper=self.stage/'waste_data.py'
+        code=helper.read_bytes()
+        if hashlib.sha256(code).hexdigest()!=config.get('waste_data_sha256'):
+            raise RuntimeError('Waste data helper checksum mismatch')
+        spec=importlib.util.spec_from_file_location('kafel_waste_data',helper)
+        module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
+        account=pwd.getpwnam(self.user)
+        def validate(candidate):
+            self.command('runuser','-u',self.user,'--',str(self.stage/'kafel-waste'),'--check',str(candidate))
+        self.waste_plan=module.prepare(self.root,home,self.stage,values.get('KAFEL_WASTE_SCHEDULE'),
+            config.get('waste_schedule'),account.pw_uid,account.pw_gid,validate)
+        path='/'+str(self.waste_plan.destination.relative_to(self.root))
+        self.schedule_path=self.waste_plan.destination
         escaped=path.replace('\\','\\\\').replace('"','\\"')
         self.waste_environment=('KAFEL_WASTE_SCHEDULE="'+escaped+'"\nKAFEL_WASTE_SPAN='+span+'\n'+
             ('KAFEL_DASHBOARD_SOCKET="'+self.shared_socket(config).replace('\\','\\\\').replace('"','\\"')+'"\n' if self.shared_socket(config) else '')).encode()
@@ -357,6 +368,11 @@ class Installer:
                     temporary.write_bytes(data);os.chmod(temporary,0o600)
                     tar.add(temporary,arcname='files/'+str(index));temporary.unlink()
                     info['files'].append({'path':'/'+str(path.relative_to(self.root)),'entry':'files/'+str(index),'mode':mode,'uid':uid,'gid':gid})
+            if self.waste_plan and self.waste_plan.source:
+                data=self.waste_plan.data
+                entry=tarfile.TarInfo('waste-schedule-original.json');entry.size=len(data);entry.mode=0o600
+                tar.addfile(entry,io.BytesIO(data))
+                info['waste_data_migration']=self.waste_plan.report()
             if previous:
                 old_release=(self.base/previous).resolve()
                 if old_release.parent == (self.base/'releases').resolve(): tar.add(old_release,arcname='previous-release')
@@ -473,7 +489,7 @@ class Installer:
             if 'kafel-dashboard' in selected and status.is_file():self.display_report['isolation']=json.loads(status.read_text())
             path = self.stage/'report.json'
             path.write_text(json.dumps({'changed': changed, 'unchanged': [n for n in selected if n not in changed],
-                                       'services': self.health_report, 'display': self.display_report,'untouched_services':untouched}, indent=2)+'\n')
+                                       'services': self.health_report, 'display': self.display_report,'untouched_services':untouched,'waste_schedule':self.waste_plan.report() if self.waste_plan else None}, indent=2)+'\n')
             os.chmod(path, 0o600)
             os.chown(path, pwd.getpwnam(self.user).pw_uid, -1)
         if not changed:
@@ -509,6 +525,7 @@ class Installer:
             for unit in units:
                 if self.states[unit]['loaded']: self.systemctl('stop', unit)
             if 'kafel-dashboard' in changed: self.dashboard_command('--check')
+            if 'kafel-waste' in changed:self.waste_plan.apply()
             for path, data in desired.items():
                 if path in self.saved: atomic_write(path, data, self.display_modes.get(path,0o600 if path in (self.envfile, self.waste_envfile) else 0o644))
             if 'kafel-dashboard' in changed:os.chmod(self.helperfile.parent,0o755)
@@ -563,6 +580,7 @@ class Installer:
             for unit in NEW+OLD:
                 if self.states[unit]['loaded']: self.systemctl('stop',unit)
             self.dashboard_command('--check')
+            self.waste_plan.apply()
             for unit in NEW:
                 template=(self.stage/(unit+'.in')).read_text().replace('@USER@',self.user)
                 atomic_write(self.units/unit,template.encode())

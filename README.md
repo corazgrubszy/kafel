@@ -151,7 +151,8 @@ cp deploy.example.json deploy.local.json
 
 Ustaw `host` i `user`. Plik jest ignorowany przez Git. Dla pierwszego wdrożenia
 Pogody podaj również `latitude` i `longitude` jako napisy z liczbami.
-Dla Śmieci `waste_schedule` wskazuje **już istniejący plik na CM4**.
+Domyślny harmonogram Śmieci to `/var/lib/kafel-waste/garbage_schedule.json`.
+Opcjonalne `waste_schedule` wskazuje inny istniejący plik na CM4.
 
 ```json
 {
@@ -159,14 +160,16 @@ Dla Śmieci `waste_schedule` wskazuje **już istniejący plik na CM4**.
   "user": "your-user",
   "latitude": "52.0",
   "longitude": "17.0",
-  "waste_schedule": "/home/your-user/kafel-data/garbage_schedule.json",
+  "waste_schedule": "/var/lib/kafel-waste/garbage_schedule.json",
   "waste_span": "1"
 }
 ```
 
 Współrzędne są przykładowe. Instalator nie przesyła harmonogramu; należy
 przygotować go osobno według [formatu kafel-waste](apps/waste/README.md).
-Na istniejącej instalacji zachowuje konfigurację usług i dotychczasowy plik.
+Przy migracji z `infohub/data` kopiuje plik do własnego katalogu Śmieci,
+sprawdza zgodność bajtów i zachowuje oryginał oraz kopię w archiwum rollbacku.
+Nie nadpisuje różniącego się pliku docelowego. Pozostałe własne ścieżki zachowuje.
 
 ```sh
 zig build deploy-dashboard

@@ -61,6 +61,7 @@ class DeployTests(unittest.TestCase):
                 root=Path(folder)
                 (root/'scripts').mkdir()
                 (root/'scripts/display_console.py').write_text('# fixture')
+                (root/'scripts/waste_data.py').write_text('# fixture')
                 args=deploy.settings(['--host','cm4','--user','operator','--only',app,'--build'],root)
                 binary=getattr(args,app)
                 binary.parent.mkdir(parents=True)
