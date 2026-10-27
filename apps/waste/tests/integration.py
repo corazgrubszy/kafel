@@ -27,7 +27,7 @@ with tempfile.TemporaryDirectory(prefix='kwaste-',dir='/tmp') as directory:
             for tiles in snapshots:
                 tile=tiles[0]
                 assert tile['title']=='Śmieci' and tile['state']=='ok' and tile['attention']
-                assert tile['content']['data']['caption']=='Dziś'
+                assert tile['content']['data']['caption']=='Dzisiaj'
                 assert tile['content']['data']['fractions']=='Jutro: Szkło'
                 assert 'month' not in tile['content']['data']
                 graphic=resources[tile['content']['data']['illustration']][1].decode()

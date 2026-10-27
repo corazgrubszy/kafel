@@ -274,7 +274,7 @@ void test_cards() {
               "mixed bin lid renders yellow");
     }
     auto waste_template = parse(waste.resources.at(waste.template_id)->bytes);
-    Json waste_data(Object{{"caption", Json("Dziś")},
+    Json waste_data(Object{{"caption", Json("Dzisiaj")},
                            {"fractions", Json("Jutro: Zmieszane · Papier · Tworzywa · Kuchenne · Ogród")},
                            {"illustration", Json(waste.svg.at("61"))}});
     auto waste_source = [&](std::string_view id) -> std::string_view {

@@ -50,7 +50,7 @@ dash5::Json dashboard_document(const Schedule *schedule, Date today, bool failed
         unsigned fractions = 0;
         if (selected) {
             if (selected->when == Selection::When::Today) {
-                caption = "Dziś";
+                caption = "Dzisiaj";
                 fractions = selected->day.fractions;
                 names = next_pickup(selected->next, today);
             } else {

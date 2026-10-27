@@ -1,7 +1,7 @@
 # kafel-waste
 
 Demon C++ czyta lokalny harmonogram i publikuje duży kafel „Śmieci” przez
-DASH/5: własne kolorowe SVG kubłów i podpis Dziś/Jutro lub dzień i skrót miesiąca najbliższego
+DASH/5: własne kolorowe SVG kubłów i podpis Dzisiaj/Jutro lub dzień i skrót miesiąca najbliższego
 odbioru. Dashboard nie zna frakcji ani reguł kalendarza.
 
 ## Dane i konfiguracja
@@ -49,14 +49,14 @@ Widok pozostaje stały między zmianami daty lub harmonogramu:
 
 | Sytuacja | Główna wartość | Kubły | Dolny wiersz |
 |---|---|---|---|
-| Dziś/jutro bez odbioru | dzień + skrót miesiąca | brak | frakcje najbliższego odbioru |
+| Dzisiaj/jutro bez odbioru | dzień + skrót miesiąca | brak | frakcje najbliższego odbioru |
 | Brak odbioru dziś, odbiór jutro | Jutro | jutrzejsze | jutrzejsze frakcje |
-| Odbiór dziś, następny jutro | Dziś | dzisiejsze | `Jutro: frakcje` |
-| Odbiór dziś, następny później | Dziś | dzisiejsze | `20 paź: frakcje` |
-| Odbiór dziś, bez dalszych terminów | Dziś | dzisiejsze | `Brak kolejnych terminów` |
+| Odbiór dziś, następny jutro | Dzisiaj | dzisiejsze | `Jutro: frakcje` |
+| Odbiór dziś, następny później | Dzisiaj | dzisiejsze | `20 paź: frakcje` |
+| Odbiór dziś, bez dalszych terminów | Dzisiaj | dzisiejsze | `Brak kolejnych terminów` |
 
 Długi dolny wiersz przewija dashboard, bez zmiany głównej wartości ani ikon.
-Heartbeat nie przełącza Dziś/Jutro. Flaga attention jest ustawiana dla dzisiejszego
+Heartbeat nie przełącza Dzisiaj/Jutro. Flaga attention jest ustawiana dla dzisiejszego
 lub jutrzejszego odbioru. Brak przyszłych terminów daje warning `Brak terminów`;
 brak harmonogramu daje error/missing bez starej treści.
 
@@ -95,7 +95,7 @@ pełny tekst; przesuwanie pozostaje odpowiedzialnością ogólnego renderera UI.
 Ilustracje korzystają z **Heroicons Trash Solid**, Tailwind Labs, MIT. Oryginał,
 wersja i licencja: `vendor/heroicons`. Sylwetki zachowują proporcje i mają 64 px
 wysokości przy maksymalnie trzech frakcjach; większa grupa skaluje się proporcjonalnie
-do szerokości kafla. `caption` zawiera cały główny napis: „Dziś”, „Jutro”
+do szerokości kafla. `caption` zawiera cały główny napis: „Dzisiaj”, „Jutro”
 albo np. „17 paź”. Całość ma stałe 60 px, bez osobnego pola miesiąca
 i zmiany rozmiaru jego czcionki.
 

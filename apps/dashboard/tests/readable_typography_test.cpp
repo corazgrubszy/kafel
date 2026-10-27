@@ -53,9 +53,12 @@ void test_readable_typography() {
     }
     const auto hero_style = theme.clock_number;
     ui::TextFont hero({ui_sans_bold_data(), ui_sans_bold_size()},
-                      "DziśJutroBrak0123456789 sty lut mar kwi maj cze lip sie wrz paź lis gru",
+                      "DzisiajJutroBrak0123456789 sty lut mar kwi maj cze lip sie wrz paź lis gru",
                       std::array{hero_style});
-    check(hero_style.em_px == kafel::LargeTileLayout::value_size && hero.measure("Dziś", hero_style) <= 212 &&
+    check(hero_style.em_px == kafel::LargeTileLayout::value_size &&
+              hero.measure("Dzisiaj", hero_style) <= 212 &&
+              hero.ink_bounds("Dzisiaj", hero_style).x + hero.ink_bounds("Dzisiaj", hero_style).width <=
+                  212 &&
               hero.measure("Jutro", hero_style) <= 212,
           "both waste captions fit at the exact 60px clock and temperature size");
     check(hero_style.em_px == 60, "clock, temperature and waste share a fixed 60px role");

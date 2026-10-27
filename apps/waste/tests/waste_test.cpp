@@ -35,7 +35,7 @@ int main() {
     auto current = tile(dashboard_tiles(&schedule, today));
     check(current.get("attention") == Json(true) && current.get("state") == Json("ok"),
           "pickup attention independent from ok state");
-    check(current.get("content").get("data").get("caption") == Json("Dziś"), "approved titlecase caption");
+    check(current.get("content").get("data").get("caption") == Json("Dzisiaj"), "approved titlecase caption");
     check(current.get("content").get("data").get("fractions") == Json("Jutro: Szkło"),
           "today card announces tomorrow without rotating bins or title");
     const Schedule only_tomorrow{"UTC", {{today + std::chrono::days(1), 4}}};

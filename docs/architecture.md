@@ -168,8 +168,8 @@ Parametry boot są częścią transakcji instalatora, nie pętli UI.
 
 Widok systemowy i usługi używają tego samego Sans Regular/Bold. NumberFont
 jest adapterem TrueType, nie osobnym geometrycznym fontem. Cyfry mają stałe
-komórki, a słowa Dziś/Jutro pozostają proporcjonalne w tym samym kroju.
-Zegar, temperatura i Dziś/Jutro mają 60 px oraz wspólną linię bazową 192. Nagłówki mają 22 px, a podpisy 18 px i linię bazową 223.
+komórki, a słowa Dzisiaj/Jutro pozostają proporcjonalne w tym samym kroju.
+Zegar, temperatura i Dzisiaj/Jutro mają 60 px oraz wspólną linię bazową 192. Nagłówki mają 22 px, a podpisy 18 px i linię bazową 223.
 
 TextFont::ink_bounds uwzględnia overshoot, dzięki czemu clipping opadających
 cyfr nie zmienia rastra przy przejściu do widoku statycznego. Jednostki metryk
