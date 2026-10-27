@@ -1,0 +1,30 @@
+.DS_Store
+.zig-cache/
+zig-out/
+__pycache__/
+results/
+*.ppm
+*.local.json
+deploy-results/
+
+# Local credentials and private keys. Keep public configuration templates usable.
+.env
+.env.*
+!.env.example
+!.env.sample
+*.key
+*.key.*
+*-key.pem
+*_key.pem
+private*.pem
+*.p12
+*.pfx
+id_rsa
+id_ed25519
+
+# Real waste schedules are device-local data, not project sources.
+garbage_schedule.json
+/apps/waste/data/
+
+# Private device schedule backups.
+garbage_schedule.*.json

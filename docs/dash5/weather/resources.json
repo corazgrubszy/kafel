@@ -1,0 +1,12 @@
+{
+  "template": {
+    "id": "sha256:15db1ffb4c7f084d6032912306c05d3845a92c9986a1771b612bd79782485451",
+    "media_type": "application/vnd.kafel.tile+json",
+    "bytes": 3936
+  },
+  "illustration": {
+    "id": "sha256:2a4c9b95edf5bddd37c1f8c68efc23917cce3242041d0ba4d9f3b570174f1a8d",
+    "media_type": "image/svg+xml",
+    "bytes": 3496
+  }
+}

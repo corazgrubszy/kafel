@@ -1,0 +1,76 @@
+{
+  "package": "@meteocons/svg-static",
+  "version": "0.1.0",
+  "notes": [
+    "Originals are preserved in vendor/meteocons-static with MIT license.",
+    "Only full 128x128 viewport clips are removed; masks, filters, use and animation are rejected.",
+    "The cloud example is cloudy. Flat overcast uses a nontrivial mask and was not substituted silently.",
+    "Adapted source geometry is unchanged; colors and one common layout transform differ."
+  ],
+  "cases": {
+    "fill/sun": {
+      "original_supported": true,
+      "original_error": "",
+      "adapted_supported": true,
+      "source_sha256": "48743c29f18f37a844737cddafceb2d6d194090cc59f70c2733d10a70a96218a",
+      "adapted_sha256": "bb6cd5ef880b1d708151380ff47fea9727459e86e62fb24f5c1c199df114ce95",
+      "rgb_sha256": "8367b669224a62211d47bd980e1194b2f424c7d1dbbac1b2e776261cf2db5180"
+    },
+    "fill/clouds": {
+      "original_supported": false,
+      "original_error": "invalid or unsupported static SVG",
+      "adapted_supported": true,
+      "source_sha256": "4946fe0f1d11975ff37176a9548de5d04d4eda297a1e8a9edadf60c2b0fcbcae",
+      "adapted_sha256": "2d1eac4d07f2d31b5dd323f22023a979733c7fd75c83746a0857569c71938d3a",
+      "rgb_sha256": "bfa02e854060788777a6407de826fb9bc36eb76363e968ce3a9524c094f65d5f"
+    },
+    "fill/rain": {
+      "original_supported": false,
+      "original_error": "invalid or unsupported static SVG",
+      "adapted_supported": true,
+      "source_sha256": "bd2300f05bcc4f98751adbda0489dd35cf3ac94761a8ad79f0255cdd9e150e4a",
+      "adapted_sha256": "2e39a2acf6dc13716df436d0fac9c2f50a811cf1ed50fe4a97a16ee96f895edb",
+      "rgb_sha256": "0241c54a2b62789e855033d42e5e79f75d8019601e7623bcc5b8a1e504921f2c"
+    },
+    "fill/snow": {
+      "original_supported": false,
+      "original_error": "invalid or unsupported static SVG",
+      "adapted_supported": true,
+      "source_sha256": "ab7f7a25b852f3d795cf76d6f70ffa47a9086f9f6ddd9d9c32bd05f2bc4f9d41",
+      "adapted_sha256": "87c48d4138956a14cab3914906d623e1be93fd6a31185f1410bc98ee977ae2d2",
+      "rgb_sha256": "922f679e5764d6e0bfaf4c901e7e7eaf2d0e84c003e5c52c82dc724fb0ba6ca3"
+    },
+    "flat/sun": {
+      "original_supported": true,
+      "original_error": "",
+      "adapted_supported": true,
+      "source_sha256": "11b8b9a6fa5c2b4b44601de6227061b55fdf96910a886938bdd626bcf8b16cb9",
+      "adapted_sha256": "9fcf08908219e1e1f061ee54263d599040302a9df4ef1453a3aea055e8241eb1",
+      "rgb_sha256": "72c6b882cc963f73980433452828a53b6b9d8a80e87f206a615feea34f356c18"
+    },
+    "flat/clouds": {
+      "original_supported": false,
+      "original_error": "invalid or unsupported static SVG",
+      "adapted_supported": true,
+      "source_sha256": "56c7ea3a3f1a78df3fbd361d0292a43a6dd7985e4960ddf165efac3d393e4001",
+      "adapted_sha256": "2c5a869055c5242a3f58e2f71fcd50a8cd5dde14f80d3409f6a2da2c02cab4fb",
+      "rgb_sha256": "b1b514ac513b30e5c0c2164f1b465925e4c08f47436cff434d8119367682699d"
+    },
+    "flat/rain": {
+      "original_supported": false,
+      "original_error": "invalid or unsupported static SVG",
+      "adapted_supported": true,
+      "source_sha256": "a4a2f1ab292661105dc8888de02a2c6bcdeca5f74f01fa458784ae3e576b3569",
+      "adapted_sha256": "0e81de75856f00774c7779c22244b010fe3121c242340afa473e93a5d30136bc",
+      "rgb_sha256": "59196b759fb1590682a2d321c670dea74bded90ef22bc6061a6b8c544a690740"
+    },
+    "flat/snow": {
+      "original_supported": false,
+      "original_error": "invalid or unsupported static SVG",
+      "adapted_supported": true,
+      "source_sha256": "fe6e52bc2517a7c61a44b54edf84a2a11a971be4881f9ca3c3bf384d2b9a6617",
+      "adapted_sha256": "73f16086dd7ef0633e762466830c7f7095b4fc9b92cc45c027fff77d3f4a4ed0",
+      "rgb_sha256": "96a0055fe26ec090b2c4f895b2277040d423cab975ce04908c00b82f93a1ff94"
+    }
+  }
+}

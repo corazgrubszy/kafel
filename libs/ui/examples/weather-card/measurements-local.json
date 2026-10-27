@@ -1,0 +1,135 @@
+{
+  "platform": "macOS-27.2-arm64-arm-64bit",
+  "machine": "arm64",
+  "cpu": "Apple M2 Pro",
+  "zig": "0.17.0",
+  "optimize": "ReleaseFast",
+  "native_benchmark_bytes": 836896,
+  "method": "Fresh process per SVG. 100 parse+destroy; first raster; 300 warm raster; 200 cached card; 100 uncached card. Same text data for every illustration. NanoSVG malloc/realloc instrumentation is benchmark-only; requested live/peak bytes exclude allocator headers and C++ storage. ru_maxrss is whole-process high-water mark, not live heap or SVG-only RAM. Fonts are loaded from files.",
+  "cases": {
+    "sun": {
+      "nanosvg_heap_peak_bytes": 43576,
+      "nanosvg_live_svg_stage_bytes": 8432,
+      "nanosvg_live_after_cache_bytes": 0,
+      "warm_raster_allocation_calls": 0,
+      "cached_paint_svg_allocation_calls": 0,
+      "svg_bytes": 926,
+      "rgba_cache_bytes": 230400,
+      "rgb_frame_bytes": 172800,
+      "parse_destroy_us": {
+        "median": 9.75,
+        "p95": 12.667
+      },
+      "cold_raster_us": 186.709,
+      "warm_raster_us": {
+        "median": 179.041,
+        "p95": 223.041
+      },
+      "font_and_card_setup_ms": 9.653,
+      "cached_card_us": {
+        "median": 798.709,
+        "p95": 923.708
+      },
+      "uncached_card_us": {
+        "median": 922.084,
+        "p95": 988.375
+      },
+      "process_peak_rss_baseline_bytes": 9551872,
+      "process_peak_rss_after_svg_bytes": 9551872,
+      "process_peak_rss_full_card_bytes": 9682944
+    },
+    "clouds": {
+      "nanosvg_heap_peak_bytes": 45648,
+      "nanosvg_live_svg_stage_bytes": 10376,
+      "nanosvg_live_after_cache_bytes": 0,
+      "warm_raster_allocation_calls": 0,
+      "cached_paint_svg_allocation_calls": 0,
+      "svg_bytes": 1282,
+      "rgba_cache_bytes": 230400,
+      "rgb_frame_bytes": 172800,
+      "parse_destroy_us": {
+        "median": 11.875,
+        "p95": 16.375
+      },
+      "cold_raster_us": 209.917,
+      "warm_raster_us": {
+        "median": 193.5,
+        "p95": 223.375
+      },
+      "font_and_card_setup_ms": 7.77,
+      "cached_card_us": {
+        "median": 736.291,
+        "p95": 791.042
+      },
+      "uncached_card_us": {
+        "median": 950.125,
+        "p95": 1020.917
+      },
+      "process_peak_rss_baseline_bytes": 9551872,
+      "process_peak_rss_after_svg_bytes": 9551872,
+      "process_peak_rss_full_card_bytes": 9764864
+    },
+    "rain": {
+      "nanosvg_heap_peak_bytes": 47088,
+      "nanosvg_live_svg_stage_bytes": 11816,
+      "nanosvg_live_after_cache_bytes": 0,
+      "warm_raster_allocation_calls": 0,
+      "cached_paint_svg_allocation_calls": 0,
+      "svg_bytes": 1546,
+      "rgba_cache_bytes": 230400,
+      "rgb_frame_bytes": 172800,
+      "parse_destroy_us": {
+        "median": 13.834,
+        "p95": 19.541
+      },
+      "cold_raster_us": 221.167,
+      "warm_raster_us": {
+        "median": 203.917,
+        "p95": 220.667
+      },
+      "font_and_card_setup_ms": 7.718,
+      "cached_card_us": {
+        "median": 750.25,
+        "p95": 809.708
+      },
+      "uncached_card_us": {
+        "median": 976.25,
+        "p95": 1047.084
+      },
+      "process_peak_rss_baseline_bytes": 9551872,
+      "process_peak_rss_after_svg_bytes": 9551872,
+      "process_peak_rss_full_card_bytes": 9830400
+    },
+    "snow": {
+      "nanosvg_heap_peak_bytes": 47088,
+      "nanosvg_live_svg_stage_bytes": 11816,
+      "nanosvg_live_after_cache_bytes": 0,
+      "warm_raster_allocation_calls": 0,
+      "cached_paint_svg_allocation_calls": 0,
+      "svg_bytes": 1546,
+      "rgba_cache_bytes": 230400,
+      "rgb_frame_bytes": 172800,
+      "parse_destroy_us": {
+        "median": 13.959,
+        "p95": 18.291
+      },
+      "cold_raster_us": 227.666,
+      "warm_raster_us": {
+        "median": 202.375,
+        "p95": 221.334
+      },
+      "font_and_card_setup_ms": 7.869,
+      "cached_card_us": {
+        "median": 741.5,
+        "p95": 785.292
+      },
+      "uncached_card_us": {
+        "median": 967.625,
+        "p95": 1008.583
+      },
+      "process_peak_rss_baseline_bytes": 9551872,
+      "process_peak_rss_after_svg_bytes": 9551872,
+      "process_peak_rss_full_card_bytes": 9863168
+    }
+  }
+}

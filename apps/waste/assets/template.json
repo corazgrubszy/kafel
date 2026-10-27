@@ -1,0 +1,149 @@
+{
+  "schema": "kafel.tile/1",
+  "canvas": [
+    240,
+    240
+  ],
+  "fonts": [
+    {
+      "id": "regular",
+      "repertoire": "0123456789-.,°C m/sABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzĄĆĘŁŃÓŚŹŻąćęłńóśźż…·:",
+      "face": "ibm-plex-sans/regular"
+    },
+    {
+      "id": "bold",
+      "repertoire": "0123456789-.,°C m/sABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzĄĆĘŁŃÓŚŹŻąćęłńóśźż…·",
+      "face": "ibm-plex-sans/bold"
+    }
+  ],
+  "styles": {
+    "title": {
+      "font": "bold",
+      "size": 22,
+      "color": "#e0def4"
+    },
+    "caption": {
+      "font": "bold",
+      "size": 60,
+      "color": "#c4a7e7"
+    },
+    "detail": {
+      "font": "regular",
+      "size": 18,
+      "color": "#e0def4"
+    }
+  },
+  "backdrop": {
+    "base": "#393552",
+    "glow_center": [
+      178,
+      66
+    ],
+    "glow_radius": [
+      34,
+      32
+    ],
+    "glow_gain": [
+      0,
+      0,
+      0
+    ],
+    "stripe_start": 116,
+    "stripe_period": 46,
+    "stripe_width": 0,
+    "stripe_gain": "#050408",
+    "corner_radius": 6
+  },
+  "texts": [
+    {
+      "at": [
+        14,
+        14
+      ],
+      "clip": [
+        14,
+        10,
+        212,
+        30
+      ],
+      "style": "title",
+      "content": "Śmieci",
+      "overflow": "clip"
+    },
+    {
+      "at": [
+        14,
+        150
+      ],
+      "clip": [
+        14,
+        134,
+        212,
+        74
+      ],
+      "style": "caption",
+      "content": {
+        "field": "caption",
+        "format": "text"
+      },
+      "overflow": "clip"
+    },
+    {
+      "at": [
+        14,
+        210
+      ],
+      "clip": [
+        14,
+        208,
+        212,
+        24
+      ],
+      "style": "detail",
+      "content": {
+        "field": "fractions",
+        "format": "text"
+      },
+      "overflow": "marquee"
+    }
+  ],
+  "metrics": [],
+  "fields": [
+    {
+      "name": "caption",
+      "format": "text",
+      "max_bytes": 64
+    },
+    {
+      "name": "fractions",
+      "format": "text",
+      "max_bytes": 96
+    },
+    {
+      "name": "illustration",
+      "format": "svg"
+    }
+  ],
+  "images": [
+    {
+      "at": [
+        14,
+        52
+      ],
+      "size": [
+        212,
+        64
+      ],
+      "clip": [
+        14,
+        52,
+        212,
+        64
+      ],
+      "source": {
+        "field": "illustration"
+      },
+      "fit": "contain"
+    }
+  ]
+}

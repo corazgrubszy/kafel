@@ -1,0 +1,350 @@
+[
+  {
+    "code": 0,
+    "description": "Bezchmurnie",
+    "day": {
+      "resource": "clear-day",
+      "rgb_sha256": "6e818e8dc7d1c1c47203191a0031a17b95e04a20b88c03211e811b4bf98d3547"
+    },
+    "night": {
+      "resource": "clear-night",
+      "rgb_sha256": "bace94a0356cc8d7e9789692b794442de403c4975aaa0e7a8a4b7b1f8fbc72ff"
+    }
+  },
+  {
+    "code": 1,
+    "description": "Pogodnie",
+    "day": {
+      "resource": "mostly-clear-day",
+      "rgb_sha256": "9e8feaef6bfae186d2862678a01ea7659add15b0a874c6baf5bbc9d480d961f4"
+    },
+    "night": {
+      "resource": "mostly-clear-night",
+      "rgb_sha256": "38a8eaa6f35027d362161d44da016ca0f99d140c3918a023910654195cff2ff6"
+    }
+  },
+  {
+    "code": 2,
+    "description": "Zachmurzenie",
+    "day": {
+      "resource": "partly-cloudy-day",
+      "rgb_sha256": "1c00013485f35da57c09b3896237f27697f59f18ff8c50b7257c77a99f429af8"
+    },
+    "night": {
+      "resource": "partly-cloudy-night",
+      "rgb_sha256": "298f2343c3b14eaa418fd0ed387ee8fc1c5dd24af666a43906d1d5dde545d828"
+    }
+  },
+  {
+    "code": 3,
+    "description": "Pochmurno",
+    "day": {
+      "resource": "overcast-day",
+      "rgb_sha256": "c01f980b63d5837671ad68efe76976d45115418b5f751ffdf9da2edbd3507a55"
+    },
+    "night": {
+      "resource": "overcast-night",
+      "rgb_sha256": "87cebee84a34753d1ddf4a6a6487190b794845f85e692b27b9900a556479d392"
+    }
+  },
+  {
+    "code": 45,
+    "description": "Mgła",
+    "day": {
+      "resource": "fog-day",
+      "rgb_sha256": "798e39db1771be3a6ad2aba6a9b9d8a9bc3e37f6a587a2bdda50d3605cb33777"
+    },
+    "night": {
+      "resource": "fog-night",
+      "rgb_sha256": "790411520c70aee211620cf67fc89624a3bff250469d50f9ede89598f10932d8"
+    }
+  },
+  {
+    "code": 48,
+    "description": "Mgła osadzająca szadź",
+    "day": {
+      "resource": "fog-day",
+      "rgb_sha256": "798e39db1771be3a6ad2aba6a9b9d8a9bc3e37f6a587a2bdda50d3605cb33777"
+    },
+    "night": {
+      "resource": "fog-night",
+      "rgb_sha256": "790411520c70aee211620cf67fc89624a3bff250469d50f9ede89598f10932d8"
+    }
+  },
+  {
+    "code": 51,
+    "description": "Słaba mżawka",
+    "day": {
+      "resource": "overcast-day-drizzle",
+      "rgb_sha256": "2cd58071e289422c595df7513d37d4bbef0d0fd33fbdc7466a4a2a4e114b3268"
+    },
+    "night": {
+      "resource": "overcast-night-drizzle",
+      "rgb_sha256": "a489cd8857445b39fbde9bc19237f1422da7aa106669227d4b252f4b8de577f8"
+    }
+  },
+  {
+    "code": 53,
+    "description": "Mżawka",
+    "day": {
+      "resource": "overcast-day-drizzle",
+      "rgb_sha256": "2cd58071e289422c595df7513d37d4bbef0d0fd33fbdc7466a4a2a4e114b3268"
+    },
+    "night": {
+      "resource": "overcast-night-drizzle",
+      "rgb_sha256": "a489cd8857445b39fbde9bc19237f1422da7aa106669227d4b252f4b8de577f8"
+    }
+  },
+  {
+    "code": 55,
+    "description": "Silna mżawka",
+    "day": {
+      "resource": "extreme-day-drizzle",
+      "rgb_sha256": "77a4cff5394e4a5fc34109a42478b7126e803085eff81a03d14cf4164139afa7"
+    },
+    "night": {
+      "resource": "extreme-night-drizzle",
+      "rgb_sha256": "fc99391138aef6a761204f775475040101c94edc79edd26dd23e04a822234f85"
+    }
+  },
+  {
+    "code": 56,
+    "description": "Słaba marznąca mżawka",
+    "day": {
+      "resource": "overcast-day-sleet",
+      "rgb_sha256": "da296567ce2af65c7b13df5ff1f9c0c06cd9714edf24859d2236aec03be14c5a"
+    },
+    "night": {
+      "resource": "overcast-night-sleet",
+      "rgb_sha256": "9af8a0745151749143e92dd67b52c96c5c9fc813aa8e46964d53617c4f5b7f85"
+    }
+  },
+  {
+    "code": 57,
+    "description": "Silna marznąca mżawka",
+    "day": {
+      "resource": "extreme-day-sleet",
+      "rgb_sha256": "6fd251a6b766d412ced4cce76b45fded55c154808b53980e8f0aea2feeb16658"
+    },
+    "night": {
+      "resource": "extreme-night-sleet",
+      "rgb_sha256": "3ae91c8f2f4a52256f11152535eb289c0c5482be574e38e8f4a4325063eb7fe7"
+    }
+  },
+  {
+    "code": 61,
+    "description": "Słaby deszcz",
+    "day": {
+      "resource": "overcast-day-rain",
+      "rgb_sha256": "f299c1206847b95daee708b3ac845088e29da790b05daf5b435662c070932ac3"
+    },
+    "night": {
+      "resource": "overcast-night-rain",
+      "rgb_sha256": "5328b1ba7736955bb08a173cc39873cae7c5ce135b98755dca2c823b7cf11c44"
+    }
+  },
+  {
+    "code": 63,
+    "description": "Deszcz",
+    "day": {
+      "resource": "overcast-day-rain",
+      "rgb_sha256": "f299c1206847b95daee708b3ac845088e29da790b05daf5b435662c070932ac3"
+    },
+    "night": {
+      "resource": "overcast-night-rain",
+      "rgb_sha256": "5328b1ba7736955bb08a173cc39873cae7c5ce135b98755dca2c823b7cf11c44"
+    }
+  },
+  {
+    "code": 65,
+    "description": "Silny deszcz",
+    "day": {
+      "resource": "extreme-day-rain",
+      "rgb_sha256": "7e3efd30f6073b6fa4fe05351436024ceaa3408a338cb0000aab23426cf1d0aa"
+    },
+    "night": {
+      "resource": "extreme-night-rain",
+      "rgb_sha256": "8d6690717f08d13f6dd945c27c33b9b004edd1457aa524e309f679c7d481738a"
+    }
+  },
+  {
+    "code": 66,
+    "description": "Słaby marznący deszcz",
+    "day": {
+      "resource": "overcast-day-sleet",
+      "rgb_sha256": "da296567ce2af65c7b13df5ff1f9c0c06cd9714edf24859d2236aec03be14c5a"
+    },
+    "night": {
+      "resource": "overcast-night-sleet",
+      "rgb_sha256": "9af8a0745151749143e92dd67b52c96c5c9fc813aa8e46964d53617c4f5b7f85"
+    }
+  },
+  {
+    "code": 67,
+    "description": "Silny marznący deszcz",
+    "day": {
+      "resource": "extreme-day-sleet",
+      "rgb_sha256": "6fd251a6b766d412ced4cce76b45fded55c154808b53980e8f0aea2feeb16658"
+    },
+    "night": {
+      "resource": "extreme-night-sleet",
+      "rgb_sha256": "3ae91c8f2f4a52256f11152535eb289c0c5482be574e38e8f4a4325063eb7fe7"
+    }
+  },
+  {
+    "code": 71,
+    "description": "Słaby śnieg",
+    "day": {
+      "resource": "overcast-day-snow",
+      "rgb_sha256": "72906f7d6863af2a5099c1eb27f6e7b4b3769677084f203ca07f71d4fd011c5b"
+    },
+    "night": {
+      "resource": "overcast-night-snow",
+      "rgb_sha256": "997175ad104a0226eedc1cadb0a9e29af6f60d2c376d551fad6bbcc32311b447"
+    }
+  },
+  {
+    "code": 73,
+    "description": "Śnieg",
+    "day": {
+      "resource": "overcast-day-snow",
+      "rgb_sha256": "72906f7d6863af2a5099c1eb27f6e7b4b3769677084f203ca07f71d4fd011c5b"
+    },
+    "night": {
+      "resource": "overcast-night-snow",
+      "rgb_sha256": "997175ad104a0226eedc1cadb0a9e29af6f60d2c376d551fad6bbcc32311b447"
+    }
+  },
+  {
+    "code": 75,
+    "description": "Silny śnieg",
+    "day": {
+      "resource": "extreme-day-snow",
+      "rgb_sha256": "16ead2f7ffd6cda8b8e9489479662ccab5f4f73e59f5f0150d0e0bb3721f5d7a"
+    },
+    "night": {
+      "resource": "extreme-night-snow",
+      "rgb_sha256": "9d8d72e06fb25cd83206640932b027abc1328c04c1811d678b2f217930666824"
+    }
+  },
+  {
+    "code": 77,
+    "description": "Śnieg ziarnisty",
+    "day": {
+      "resource": "snowflake",
+      "rgb_sha256": "1ffc498fc86e15d6578c98f5d0b1fe2987b37dcee7b2847d7e225e9fd5364c6e"
+    },
+    "night": {
+      "resource": "snowflake",
+      "rgb_sha256": "1ffc498fc86e15d6578c98f5d0b1fe2987b37dcee7b2847d7e225e9fd5364c6e"
+    }
+  },
+  {
+    "code": 80,
+    "description": "Słabe przelotne opady",
+    "day": {
+      "resource": "partly-cloudy-day-rain",
+      "rgb_sha256": "dc4a0c3d9ccf517f6db9a3c4c8120fc9c82e5bc7e95c69a775b00bbdedbb254a"
+    },
+    "night": {
+      "resource": "partly-cloudy-night-rain",
+      "rgb_sha256": "7d6c8db5ec58bb6451e3125f3b06f1d25f421531600970a1777e6e78f70a4c12"
+    }
+  },
+  {
+    "code": 81,
+    "description": "Przelotny deszcz",
+    "day": {
+      "resource": "partly-cloudy-day-rain",
+      "rgb_sha256": "dc4a0c3d9ccf517f6db9a3c4c8120fc9c82e5bc7e95c69a775b00bbdedbb254a"
+    },
+    "night": {
+      "resource": "partly-cloudy-night-rain",
+      "rgb_sha256": "7d6c8db5ec58bb6451e3125f3b06f1d25f421531600970a1777e6e78f70a4c12"
+    }
+  },
+  {
+    "code": 82,
+    "description": "Gwałtowne ulewy",
+    "day": {
+      "resource": "extreme-day-rain",
+      "rgb_sha256": "7e3efd30f6073b6fa4fe05351436024ceaa3408a338cb0000aab23426cf1d0aa"
+    },
+    "night": {
+      "resource": "extreme-night-rain",
+      "rgb_sha256": "8d6690717f08d13f6dd945c27c33b9b004edd1457aa524e309f679c7d481738a"
+    }
+  },
+  {
+    "code": 85,
+    "description": "Przelotny śnieg",
+    "day": {
+      "resource": "partly-cloudy-day-snow",
+      "rgb_sha256": "8ecc74e89a8cb89f6cec80bd76685c99944f4a2413e369c284c729be0e4b1cec"
+    },
+    "night": {
+      "resource": "partly-cloudy-night-snow",
+      "rgb_sha256": "8e1514ac5df20efea22a82187acd87727cb747512de36dd3a53a0cdb79f3b05d"
+    }
+  },
+  {
+    "code": 86,
+    "description": "Silny przelotny śnieg",
+    "day": {
+      "resource": "partly-cloudy-day-snow",
+      "rgb_sha256": "8ecc74e89a8cb89f6cec80bd76685c99944f4a2413e369c284c729be0e4b1cec"
+    },
+    "night": {
+      "resource": "partly-cloudy-night-snow",
+      "rgb_sha256": "8e1514ac5df20efea22a82187acd87727cb747512de36dd3a53a0cdb79f3b05d"
+    }
+  },
+  {
+    "code": 95,
+    "description": "Burza",
+    "day": {
+      "resource": "thunderstorms-day-rain",
+      "rgb_sha256": "4226d0e403bf0437e6cab76dd8ba49703ea7014e3d933fec738cf4b0dad1de1c"
+    },
+    "night": {
+      "resource": "thunderstorms-night-rain",
+      "rgb_sha256": "60fff42dcd3bc668d7c42a2e192177fd905b8c94575f6de4b0cadd9490db5b7a"
+    }
+  },
+  {
+    "code": 96,
+    "description": "Burza z drobnym gradem",
+    "day": {
+      "resource": "thunderstorms-day-hail",
+      "rgb_sha256": "46dbc91ee96c66be2a0100ca3c5bb5892cbf310a2a50207553945d0a521ff931"
+    },
+    "night": {
+      "resource": "thunderstorms-night-hail",
+      "rgb_sha256": "6557c43ac13c6c9bae3046d4f6d050f763d5292baab5f1d18ef1ec1fb6c27cc3"
+    }
+  },
+  {
+    "code": 97,
+    "description": "Silna burza",
+    "day": {
+      "resource": "thunderstorms-extreme-day-rain",
+      "rgb_sha256": "d2e9599fe756cd62bf2d055fedbbfee484bd656c77ed1b72a17409b1d4c2ff20"
+    },
+    "night": {
+      "resource": "thunderstorms-extreme-night-rain",
+      "rgb_sha256": "8b849458c83f6edea3e154cbf6f9f0fefc4a26d6307df58a3b3bc8a44bc485e0"
+    }
+  },
+  {
+    "code": 99,
+    "description": "Burza z silnym gradem",
+    "day": {
+      "resource": "thunderstorms-extreme-day-hail",
+      "rgb_sha256": "bed056a0f8de9a0f55a048924276c605318c353fd2308c1828793126de18a85e"
+    },
+    "night": {
+      "resource": "thunderstorms-extreme-night-hail",
+      "rgb_sha256": "2d0d85d5f767d6d1ab37c22d0858643b853de1b8da2d6c9ef816f7db3969d45f"
+    }
+  }
+]

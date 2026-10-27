@@ -1,0 +1,23 @@
+[Unit]
+Description=Kafel waste collection publisher
+Wants=kafel-dashboard.service
+After=kafel-dashboard.service
+
+[Service]
+Type=simple
+User=@USER@
+WorkingDirectory=/opt/kafel
+StateDirectory=kafel-waste
+StateDirectoryMode=0700
+EnvironmentFile=/etc/kafel/waste.env
+ExecStart=/opt/kafel/current/bin/kafel-waste
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=15
+NoNewPrivileges=yes
+UMask=0077
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

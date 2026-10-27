@@ -1,0 +1,10 @@
+{
+  "source": "https://github.com/tailwindlabs/heroicons",
+  "commit": "616b7a4dbbf3d011760af8066262cd5c6b3868f3",
+  "original": "optimized/24/solid/trash.svg",
+  "files_sha256": {
+    "trash-solid.svg": "4f550c4ff284ee651e5dc6ea6b8d78bc75f31a63b636cb6ab23a1da367550bd1",
+    "LICENSE": "60e0b68c0f35c078eef3a5d29419d0b03ff84ec1df9c3f9d6e39a519a5ae7985"
+  },
+  "adaptation": "Presentation metadata removed; path geometry retained; fixed fraction colors and proportional placement."
+}

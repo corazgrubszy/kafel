@@ -1,0 +1,47 @@
+{
+  "type": "ready",
+  "receiver_instance": "0123456789abcdef0123456789abcdef",
+  "canvas": [
+    240,
+    240
+  ],
+  "limits": {
+    "services": 7,
+    "tiles_total": 13,
+    "tiles_per_service": 13,
+    "json_bytes": 65536,
+    "json_depth": {
+      "transport": 16,
+      "template": 32
+    },
+    "template_bytes": 32768,
+    "svg_bytes": 65536,
+    "resources_per_service": 64,
+    "resource_bytes_per_service": 1048576,
+    "resource_bytes_total": 4194304,
+    "fields_per_tile": 32,
+    "text_bytes": 128,
+    "fonts_per_template": 4,
+    "glyphs_per_font": 512,
+    "styles_per_template": 16,
+    "font_sizes_per_template": 8,
+    "elements_per_template": 64,
+    "images_per_template": 4,
+    "svg_depth": 32,
+    "svg_shapes": 1024,
+    "svg_points": 65536,
+    "svg_intrinsic_extent": 4096,
+    "glyph_cache_bytes": 8388608,
+    "candidate_bytes": 8388608,
+    "preparing_snapshots": 1,
+    "pending_connections": 2,
+    "operation_timeout_ms": 3000,
+    "prepare_timeout_ms": 2000,
+    "heartbeat_ms": 5000,
+    "offline_ms": 15000,
+    "animation_fps": 25,
+    "rgba_scratch_bytes": 460800,
+    "rgb_card_cache_bytes": 2246400,
+    "corner_cache_bytes": 187200
+  }
+}

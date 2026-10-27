@@ -1,0 +1,16 @@
+{
+  "type": "publish",
+  "revision": 3,
+  "tiles": [
+    {
+      "id": "weather",
+      "title": "Pogoda",
+      "state": "error",
+      "attention": false,
+      "freshness": "missing",
+      "observed_at": null,
+      "message": "Brak danych",
+      "content": null
+    }
+  ]
+}

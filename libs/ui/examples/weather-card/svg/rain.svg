@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240">
+<defs>
+<linearGradient id="ice" x1="0" y1="0" x2="0.8" y2="1"><stop offset="0" stop-color="#c5eeeb"/><stop offset="1" stop-color="#7285a9"/></linearGradient>
+<linearGradient id="sunlight" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffe3a2"/><stop offset="1" stop-color="#eaa758"/></linearGradient>
+</defs>
+<polygon points="110,91 137,69 159,69 183,93 170,111 115,111" fill="#c4a7e7" opacity="0.56862745"/>
+<polygon points="137,69 159,69 137,96" fill="#e3d3ed" opacity="0.35294118"/>
+<polygon points="129,106 166,79 192,79 231,111 207,136 115,136" fill="url(#ice)" opacity="0.92156863"/>
+<polygon points="115,136 95,121 113,104 139,104 160,119 146,136" fill="#7894b4" opacity="0.92156863"/>
+<polygon points="166,79 192,79 166,106" fill="#d2f1ed" opacity="0.66666667"/>
+<polygon points="129,106 166,79 166,106" fill="#9ccfd8" opacity="0.49019608"/>
+<polygon points="166,106 192,79 207,111" fill="#b7e3df" opacity="0.58823529"/>
+<polygon points="166,106 207,111 207,136" fill="#667b9f" opacity="0.58823529"/>
+<polygon points="207,111 231,111 207,136" fill="#c4a7e7" opacity="0.45098039"/>
+<polygon points="113,104 139,104 121,121 95,121" fill="#9ccfd8" opacity="0.82352941"/>
+<polygon points="149,141 154,141 146,156 141,156" fill="#9ccfd8" opacity="0.82352941"/>
+<polygon points="176,141 181,141 173,156 168,156" fill="#9ccfd8" opacity="0.82352941"/>
+<polygon points="204,141 209,141 201,156 196,156" fill="#9ccfd8" opacity="0.82352941"/>
+</svg>

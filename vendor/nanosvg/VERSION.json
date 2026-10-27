@@ -1,0 +1,16 @@
+{
+  "source": "https://github.com/memononen/nanosvg",
+  "commit": "239e102ec2c691f2902e20ace2ed36ee4a35cfe6",
+  "files_sha256": {
+    "nanosvg.h": "e34fd5d084be106cea972d19ce5d27fd96d17ba89f8d06bdceee058420c8b2b0",
+    "nanosvgrast.h": "ca4f7bd4b36233f4955a187269e2442f13b422db4dc4108b3c306ed06f48f242",
+    "LICENSE.txt": "e82bc3dd03400aecabe12201219ba14750dbc4b36faab58663a7a6068548d372"
+  },
+  "local_patches": [
+    {
+      "file": "nanosvgrast.h",
+      "upstream_sha256": "79a9c5f4db19debf9f3a648a1589e96d92854f245a5cb4f3d823f263785234d8",
+      "purpose": "Skip the unused fixed-point slope conversion for edges that end before the next vertical sample; paired with the SVG wrapper scaled-coordinate and stroke bounds. No saturation or change to sample intersections."
+    }
+  ]
+}

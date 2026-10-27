@@ -1,0 +1,9 @@
+{
+  "type": "rejected",
+  "operation": "publish",
+  "revision": 1,
+  "code": "missing_resources",
+  "resources": [
+    "sha256:15db1ffb4c7f084d6032912306c05d3845a92c9986a1771b612bd79782485451"
+  ]
+}

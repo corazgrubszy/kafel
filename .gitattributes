@@ -1,0 +1,9 @@
+* text=auto eol=lf
+# Preserve upstream bytes, including license line endings and release checksums.
+vendor/** -text -whitespace
+libs/ui/assets/** -text -whitespace
+*.ttf binary
+
+# Preserve encoded documentation images byte for byte.
+*.png binary
+*.gif binary

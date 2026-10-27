@@ -1,0 +1,340 @@
+{
+  "wmo": [
+    {
+      "code": "0",
+      "day": "clear-day",
+      "night": "clear-night",
+      "description": "Bezchmurnie"
+    },
+    {
+      "code": "1",
+      "day": "mostly-clear-day",
+      "night": "mostly-clear-night",
+      "description": "Pogodnie"
+    },
+    {
+      "code": "2",
+      "day": "partly-cloudy-day",
+      "night": "partly-cloudy-night",
+      "description": "Zachmurzenie"
+    },
+    {
+      "code": "3",
+      "day": "overcast-day",
+      "night": "overcast-night",
+      "description": "Pochmurno"
+    },
+    {
+      "code": "45",
+      "day": "fog-day",
+      "night": "fog-night",
+      "description": "Mgła"
+    },
+    {
+      "code": "48",
+      "day": "fog-day",
+      "night": "fog-night",
+      "description": "Mgła osadzająca szadź"
+    },
+    {
+      "code": "51",
+      "day": "overcast-day-drizzle",
+      "night": "overcast-night-drizzle",
+      "description": "Słaba mżawka"
+    },
+    {
+      "code": "53",
+      "day": "overcast-day-drizzle",
+      "night": "overcast-night-drizzle",
+      "description": "Mżawka"
+    },
+    {
+      "code": "55",
+      "day": "extreme-day-drizzle",
+      "night": "extreme-night-drizzle",
+      "description": "Silna mżawka"
+    },
+    {
+      "code": "56",
+      "day": "overcast-day-sleet",
+      "night": "overcast-night-sleet",
+      "description": "Słaba marznąca mżawka"
+    },
+    {
+      "code": "57",
+      "day": "extreme-day-sleet",
+      "night": "extreme-night-sleet",
+      "description": "Silna marznąca mżawka"
+    },
+    {
+      "code": "61",
+      "day": "overcast-day-rain",
+      "night": "overcast-night-rain",
+      "description": "Słaby deszcz"
+    },
+    {
+      "code": "63",
+      "day": "overcast-day-rain",
+      "night": "overcast-night-rain",
+      "description": "Deszcz"
+    },
+    {
+      "code": "65",
+      "day": "extreme-day-rain",
+      "night": "extreme-night-rain",
+      "description": "Silny deszcz"
+    },
+    {
+      "code": "66",
+      "day": "overcast-day-sleet",
+      "night": "overcast-night-sleet",
+      "description": "Słaby marznący deszcz"
+    },
+    {
+      "code": "67",
+      "day": "extreme-day-sleet",
+      "night": "extreme-night-sleet",
+      "description": "Silny marznący deszcz"
+    },
+    {
+      "code": "71",
+      "day": "overcast-day-snow",
+      "night": "overcast-night-snow",
+      "description": "Słaby śnieg"
+    },
+    {
+      "code": "73",
+      "day": "overcast-day-snow",
+      "night": "overcast-night-snow",
+      "description": "Śnieg"
+    },
+    {
+      "code": "75",
+      "day": "extreme-day-snow",
+      "night": "extreme-night-snow",
+      "description": "Silny śnieg"
+    },
+    {
+      "code": "77",
+      "day": "snowflake",
+      "night": "snowflake",
+      "description": "Śnieg ziarnisty"
+    },
+    {
+      "code": "80",
+      "day": "partly-cloudy-day-rain",
+      "night": "partly-cloudy-night-rain",
+      "description": "Słabe przelotne opady"
+    },
+    {
+      "code": "81",
+      "day": "partly-cloudy-day-rain",
+      "night": "partly-cloudy-night-rain",
+      "description": "Przelotny deszcz"
+    },
+    {
+      "code": "82",
+      "day": "extreme-day-rain",
+      "night": "extreme-night-rain",
+      "description": "Gwałtowne ulewy"
+    },
+    {
+      "code": "85",
+      "day": "partly-cloudy-day-snow",
+      "night": "partly-cloudy-night-snow",
+      "description": "Przelotny śnieg"
+    },
+    {
+      "code": "86",
+      "day": "partly-cloudy-day-snow",
+      "night": "partly-cloudy-night-snow",
+      "description": "Silny przelotny śnieg"
+    },
+    {
+      "code": "95",
+      "day": "thunderstorms-day-rain",
+      "night": "thunderstorms-night-rain",
+      "description": "Burza"
+    },
+    {
+      "code": "96",
+      "day": "thunderstorms-day-hail",
+      "night": "thunderstorms-night-hail",
+      "description": "Burza z drobnym gradem"
+    },
+    {
+      "code": "97",
+      "day": "thunderstorms-extreme-day-rain",
+      "night": "thunderstorms-extreme-night-rain",
+      "description": "Silna burza"
+    },
+    {
+      "code": "99",
+      "day": "thunderstorms-extreme-day-hail",
+      "night": "thunderstorms-extreme-night-hail",
+      "description": "Burza z silnym gradem"
+    }
+  ],
+  "assets": {
+    "clear-day": {
+      "source_sha256": "11b8b9a6fa5c2b4b44601de6227061b55fdf96910a886938bdd626bcf8b16cb9",
+      "prepared_sha256": "1d6433b36ba0be418c3ec19c9c308ba1242f76b3e81d72bb2e11a654fdd767fc"
+    },
+    "clear-night": {
+      "source_sha256": "27d58c382bc8d24ce0e413650921eb3a3a2c3c574f675a95e948221072bb4fa3",
+      "prepared_sha256": "5b1ec9a0a97a62096d8318f9b8f7a112879228d337cac45a230c58f6c3389dda"
+    },
+    "extreme-day-drizzle": {
+      "source_sha256": "dec1f9ccd9748030e45bfe41763136129a2cbaa5471429b694cfd95a358d0c00",
+      "prepared_sha256": "e60d5e36575fd0d133b27db1c925415f0b1306dbc6b3a1c8863826946b1f3ba8"
+    },
+    "extreme-day-rain": {
+      "source_sha256": "617266a80465e9f52221294b398182a975306480e48cb4e5580057e48265ef68",
+      "prepared_sha256": "a060205b70bd5a08e160b91e103a1a91f30c4aec51b455651493ff332eb3c9c5"
+    },
+    "extreme-day-sleet": {
+      "source_sha256": "a27b86eaad765db71b46b84c06967e7e4a2b4afec77c4a345c0fea702f0240c7",
+      "prepared_sha256": "eea17899f7aa5be4a5350ef49cd70f212fdaa1b6d46faaf7812184d58a42eb44"
+    },
+    "extreme-day-snow": {
+      "source_sha256": "09e60faa42a6d33135546ca5f37048d3795c610f4c41906382525ab0a186ca29",
+      "prepared_sha256": "2d507cc3cb71787ceac2308e8275f09d00ad14b3bfd2923108f8c66c5a2b2ed1"
+    },
+    "extreme-night-drizzle": {
+      "source_sha256": "4a7e2b64f5379c7c481b89f1ee99e087912d5123123ba0c6e2aa88e43a29f8af",
+      "prepared_sha256": "6590c126bb88cf3590f703648e72020e793d2de6ed2c6a7931a8924bcf0aa26f"
+    },
+    "extreme-night-rain": {
+      "source_sha256": "f37535673ba5d6e13ce92494f938001f90b5cf8ef191f33ec6f72f95b111d7f6",
+      "prepared_sha256": "b5526ca19fde5a33c7a7aaea24ab650519a9c1d2714677d718bacc86c2fc90b2"
+    },
+    "extreme-night-sleet": {
+      "source_sha256": "35f3630413e2a2bf2708bf3da29b748afc92b1a674da12a53f163705501df7cf",
+      "prepared_sha256": "18afc03c6730d1e95131f017878f5efb225280dba9346d9eed1ab8559effd554"
+    },
+    "extreme-night-snow": {
+      "source_sha256": "f66e2abbdfce43185eecc2412deb08f243501a3d46e6cd05e95c16b223fd68d3",
+      "prepared_sha256": "b34f90489b72b1177d20b05fc8736272c8d51255a7873e87b54c9f4764f88dcd"
+    },
+    "fog-day": {
+      "source_sha256": "a3df08ff33852e595064269dd3fac7c84982880dbc4d5af92fcb64658ae2f85d",
+      "prepared_sha256": "f72b6fb205d812f803c832c8ed31b390fd363c359e214192e72ae10d08d114ef"
+    },
+    "fog-night": {
+      "source_sha256": "857e87311a8b6630546cdac105e8be3dff28b4bd854513b7c071d8a2f52fd713",
+      "prepared_sha256": "cd92294edc99cea9e3f583f802819b1ebcac40bea9e03f31fde5295c1eafcb4a"
+    },
+    "mostly-clear-day": {
+      "source_sha256": "1c45fa2a361c54a56e81392466f3b565a0aaf9409b6e20ad5227cf67bee9e3e6",
+      "prepared_sha256": "99b3d0f2d44e49a08658233d23af82657ff298190a8ac14f17cfd1c1419477e3"
+    },
+    "mostly-clear-night": {
+      "source_sha256": "354f4ad80a69099f27cac98f1b6f47aabbea093eb20e5b7fc94181b14c18d164",
+      "prepared_sha256": "df022f464f6415caaaef9be544e876d94c8f3c62039acaa525441e86146257ad"
+    },
+    "not-available": {
+      "source_sha256": "8f38cdc708765117522667bf68d89eda446ec318901f7e32a621b5afd8618cfe",
+      "prepared_sha256": "6a7482ebfadd8bfc9719095df2d41d3fb2ab80fca3b4a359d3c9a8dcc3f242f3"
+    },
+    "overcast-day": {
+      "source_sha256": "f51830cfb2aa3002b82c9736f26e69716b30aee1ceccc440852304caf66c19a5",
+      "prepared_sha256": "3c2da27cced2461d9809f287f668b0b5bc2e2ae14cc235a653bc2b76e110dd65"
+    },
+    "overcast-day-drizzle": {
+      "source_sha256": "734747c3acfee82276b0a14eb6cbcd7e7b40e529d1590bf157ec0ce192eefc31",
+      "prepared_sha256": "d4a79ef386e81b3affac719abce68d83e40e1951426206d89b99f946d4b24bac"
+    },
+    "overcast-day-rain": {
+      "source_sha256": "989db3a18804e7d16dce2659851ee44d3017ccaf4aa3979a472d3a28f844c1a2",
+      "prepared_sha256": "5cb2ff7275666aac664a6061112c1587bee02f866b063e206fd617b336d7122e"
+    },
+    "overcast-day-sleet": {
+      "source_sha256": "aeecf97b8cd8e2f9acda5ad509540947ced1416a25e5ae2db327174721c7dce8",
+      "prepared_sha256": "11698e023635d818c834b61096c574f01f05221ba6d4feed0006c817ed60314a"
+    },
+    "overcast-day-snow": {
+      "source_sha256": "fa763c689f8bfbf2dd0771d0c8baaf3dfbbaf3cd5e71cfeac0d0500e4a4665df",
+      "prepared_sha256": "41fda0d56b836fa2857bc19044201ae05c400b6107ff96d90a0462f8ec1fc1e4"
+    },
+    "overcast-night": {
+      "source_sha256": "5ee0e95da7f0bcc368c40c11ac1108fef0de61e5874e5bf64237b15aa96be677",
+      "prepared_sha256": "87860ba03b15d418d9635051fafb552f0b2d744c5daf1bec625843db777e372b"
+    },
+    "overcast-night-drizzle": {
+      "source_sha256": "fbe864e796a3d2191d1921dbade83b823a62a71f8c795e0a111dea5c0a44720f",
+      "prepared_sha256": "512f7d0e0d687a83f073ccbe244e047c62359844f6b659cee1e192a83763143a"
+    },
+    "overcast-night-rain": {
+      "source_sha256": "2ccee40abe03d9aa4d33b59f0b9c4b63cada041fa6bb0d2062ec42aa517ab7cb",
+      "prepared_sha256": "078c009559d740d8b9ffd4a76909a9261951f3cd0678d4e1a00c8d697480f261"
+    },
+    "overcast-night-sleet": {
+      "source_sha256": "4272cd8f83317d0121e9daeaac6a733a3f56bdcf92aaa952a2c714777babf2ac",
+      "prepared_sha256": "e9e3ca91121c6cec200631bc49198ee7c7f4d46539bc8fcff905293ae6ac1f13"
+    },
+    "overcast-night-snow": {
+      "source_sha256": "cf775eccb05c52fd64ffd586c112cf7306359be43ada675c4aae799c8b1515db",
+      "prepared_sha256": "809a5588cac1a8f0138f49c4b1cbcd5bd9ae3db6c142757a92e69df8b8f39302"
+    },
+    "partly-cloudy-day": {
+      "source_sha256": "d2019b4ff5e5aca2ff494679603b3af7c8b2995fa6b016972e8fed410f675e6c",
+      "prepared_sha256": "2a4c9b95edf5bddd37c1f8c68efc23917cce3242041d0ba4d9f3b570174f1a8d"
+    },
+    "partly-cloudy-day-rain": {
+      "source_sha256": "108b77a425a486f83dc68651b8c683ca71b86a309b23e90d9c0b31ec56610ddb",
+      "prepared_sha256": "d08545e753fea97180578a1307e4c77e375a365d7a17039b2e0c4be0cebc0866"
+    },
+    "partly-cloudy-day-snow": {
+      "source_sha256": "0f8a734cc97b4a07ea941294db4249f87278400bccccf23fcd78d39af8860309",
+      "prepared_sha256": "1346f98c451aefa893b796f9ab58377e8574849adc6f93f053a08007aac04831"
+    },
+    "partly-cloudy-night": {
+      "source_sha256": "c50bd6842f85e7ddea3352b3de1cdb1005bc31fceeab9ebac5c1fb437c15d2c8",
+      "prepared_sha256": "c23abc47bb31449edd21a47159e1601d3c11ec3b1b293d7d32f55183ef302771"
+    },
+    "partly-cloudy-night-rain": {
+      "source_sha256": "fa8901715d5a739f0236bb995d8f2e1ed68fc61e723ff24058d3d7f9903fbc84",
+      "prepared_sha256": "46f985bc37b77a9a7ba5e33eb4996ea36550d18ec1fa35aef59e544e889f7f1b"
+    },
+    "partly-cloudy-night-snow": {
+      "source_sha256": "b6dd30c25188318c1a718067aeb8d3186684928520aa8c300a9d4e27276a06e4",
+      "prepared_sha256": "d5bbf1f5bf73062ccb17a23ec4086460e312e2e9f0558b8672c0120ebb508cab"
+    },
+    "snowflake": {
+      "source_sha256": "609288b39599a05df4406d7c7d1dcc164b49a5d6c74b389f50f1ab6824390fba",
+      "prepared_sha256": "b54dd3453fc018da76acbf441aba972746edf664d2d2c0d8865d9b3b3e9b8e38"
+    },
+    "thunderstorms-day-hail": {
+      "source_sha256": "4f33af027f654939bffb01919a2b75479cbb0012cf0a5d2aab1df2c16a3e4255",
+      "prepared_sha256": "23bd1a0967cb513fa14f929f7eb6f446facc91124bdedd77a6a27a7a3e38ca46"
+    },
+    "thunderstorms-day-rain": {
+      "source_sha256": "67daa369dfcba989262b0edddcda0b56b3391061dbe9a552083772f4e2e61c1c",
+      "prepared_sha256": "41728861f492f825fb945f44c0f70e50765b1d66c2bb4c3019900b5d0e97b3f0"
+    },
+    "thunderstorms-extreme-day-hail": {
+      "source_sha256": "7e334730e3c849bee082f744c287a7357ab16f092bf2bdadece203bc2d865b61",
+      "prepared_sha256": "adc4d765c59fea48fcc74961dfd52ee0640d02f901c3c4c2ecce5d9870280556"
+    },
+    "thunderstorms-extreme-day-rain": {
+      "source_sha256": "a2507690b50679c42d0de6ef138244586c982e2fba01fd28fab5d58ab5562b1e",
+      "prepared_sha256": "21c2fe1e34c43c67a6c73113c4b702ae157f2c4eef1f6b74585dfca06c2ab721"
+    },
+    "thunderstorms-extreme-night-hail": {
+      "source_sha256": "0db0c632cdf33bc75395444bbe0754120cdcf41e323036a07dda08ae0bfc3c57",
+      "prepared_sha256": "3b1c04a2851d779ab103e3b7a33fc2d4eb5154ed9d523b4fa351fd41a5157a33"
+    },
+    "thunderstorms-extreme-night-rain": {
+      "source_sha256": "09a557ba97c6c3a3d8ca706fb79b6b1ea69e61437cf575458659e2ad7cba1105",
+      "prepared_sha256": "f3795252d301d13f13c2918e217a4d5d548962ece48e612a06dd732fa96f180f"
+    },
+    "thunderstorms-night-hail": {
+      "source_sha256": "800351cd9bcfd63782c286497dd9017eeb27d56aaf04819dde65affab888081c",
+      "prepared_sha256": "c1d33627496f647ac42a6e736167270d48c4efc10f3c53aa268a1ecef766e50e"
+    },
+    "thunderstorms-night-rain": {
+      "source_sha256": "733511a747a3185d67a53a7b7a07008dd5e552af6cc41bcc1528bf38f88876a6",
+      "prepared_sha256": "4b825a5b2485ef3777e5ebf0246407c15df43b7f8fd1fc043ebc2bd46be7ee2c"
+    }
+  }
+}

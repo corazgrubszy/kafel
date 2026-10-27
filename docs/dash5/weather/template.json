@@ -1,0 +1,241 @@
+{
+  "schema": "kafel.tile/1",
+  "canvas": [
+    240,
+    240
+  ],
+  "fonts": [
+    {
+      "id": "regular",
+      "repertoire": "0123456789-.,°C m/sABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzĄĆĘŁŃÓŚŹŻąćęłńóśźż…",
+      "face": "ibm-plex-sans/regular"
+    },
+    {
+      "id": "bold",
+      "repertoire": "0123456789-.,°C m/sABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzĄĆĘŁŃÓŚŹŻąćęłńóśźż…",
+      "face": "ibm-plex-sans/bold"
+    }
+  ],
+  "styles": {
+    "label": {
+      "font": "regular",
+      "size": 14,
+      "color": "#aaa4c5"
+    },
+    "title": {
+      "font": "bold",
+      "size": 22,
+      "color": "#e0def4"
+    },
+    "unit": {
+      "font": "bold",
+      "size": 32,
+      "color": "#c4a7e7"
+    },
+    "hero": {
+      "font": "bold",
+      "size": 60,
+      "color": "#c4a7e7"
+    },
+    "caption": {
+      "font": "regular",
+      "size": 18,
+      "color": "#e0def4"
+    }
+  },
+  "backdrop": {
+    "base": "#2a273f",
+    "glow_center": [
+      178,
+      66
+    ],
+    "glow_radius": [
+      34,
+      32
+    ],
+    "glow_gain": [
+      0,
+      0,
+      0
+    ],
+    "stripe_start": 116,
+    "stripe_period": 46,
+    "stripe_width": 0,
+    "stripe_gain": "#050408",
+    "corner_radius": 6
+  },
+  "texts": [
+    {
+      "at": [
+        14,
+        14
+      ],
+      "clip": [
+        14,
+        10,
+        212,
+        30
+      ],
+      "style": "title",
+      "content": "Pogoda",
+      "overflow": "clip"
+    },
+    {
+      "at": [
+        14,
+        52
+      ],
+      "clip": [
+        14,
+        49,
+        212,
+        32
+      ],
+      "style": "label",
+      "content": "Wiatr",
+      "overflow": "clip"
+    },
+    {
+      "at": [
+        14,
+        70
+      ],
+      "clip": [
+        14,
+        68,
+        110,
+        26
+      ],
+      "style": "title",
+      "content": {
+        "field": "wind_ms",
+        "format": "general",
+        "suffix": " m/s"
+      },
+      "overflow": "clip"
+    },
+    {
+      "at": [
+        14,
+        98
+      ],
+      "clip": [
+        14,
+        96,
+        110,
+        22
+      ],
+      "style": "label",
+      "content": {
+        "field": "precipitation_mm",
+        "format": "general",
+        "prefix": "Opady  ",
+        "suffix": " mm"
+      },
+      "overflow": "clip"
+    },
+    {
+      "at": [
+        14,
+        210
+      ],
+      "clip": [
+        14,
+        208,
+        212,
+        24
+      ],
+      "style": "caption",
+      "content": {
+        "field": "apparent_temperature",
+        "format": "integer",
+        "prefix": "Odczuwalna ",
+        "suffix": "°C"
+      },
+      "overflow": "clip"
+    }
+  ],
+  "metrics": [
+    {
+      "at": [
+        14,
+        150
+      ],
+      "clip": [
+        14,
+        134,
+        212,
+        64
+      ],
+      "sizes": [
+        "hero"
+      ],
+      "fit_width": 168,
+      "content": {
+        "field": "temperature",
+        "format": "integer"
+      },
+      "unit": "°C",
+      "unit_style": "unit",
+      "unit_y": 169,
+      "unit_gap": 6
+    }
+  ],
+  "fields": [
+    {
+      "name": "temperature",
+      "format": "integer",
+      "min": -100,
+      "max": 100
+    },
+    {
+      "name": "apparent_temperature",
+      "format": "integer",
+      "min": -150,
+      "max": 100
+    },
+    {
+      "name": "wind_ms",
+      "format": "general",
+      "min": 0,
+      "max": 150
+    },
+    {
+      "name": "precipitation_mm",
+      "format": "general",
+      "min": 0,
+      "max": 1000
+    },
+    {
+      "name": "description",
+      "format": "text",
+      "max_bytes": 64
+    },
+    {
+      "name": "illustration",
+      "format": "svg"
+    }
+  ],
+  "images": [
+    {
+      "at": [
+        127,
+        52
+      ],
+      "size": [
+        99,
+        64
+      ],
+      "clip": [
+        127,
+        52,
+        99,
+        64
+      ],
+      "source": {
+        "field": "illustration"
+      },
+      "fit": "contain"
+    }
+  ]
+}

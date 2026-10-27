@@ -1,0 +1,6 @@
+{
+  "type": "hello",
+  "service_id": "kafel-weather",
+  "name": "Pogoda",
+  "instance": "5e2416f4f2164c75bf13b45170d265ef"
+}

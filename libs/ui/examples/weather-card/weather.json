@@ -1,0 +1,269 @@
+{
+  "version": 1,
+  "canvas": [
+    240,
+    240
+  ],
+  "fonts": [
+    {
+      "id": "regular",
+      "repertoire": "0123456789-.,°C m/sPogdaTERAZSuchOzwlnWitrpyDeŚMłżkBjąźbśG"
+    },
+    {
+      "id": "bold",
+      "repertoire": "0123456789-.,°C m/sPogdaTERAZSuchOzwlnWitrpyDeŚMłżkBjąźbśG"
+    }
+  ],
+  "styles": {
+    "label": {
+      "font": "regular",
+      "size": 14,
+      "color": "#aaa4c5"
+    },
+    "footer": {
+      "font": "regular",
+      "size": 16,
+      "color": "#aaa4c5"
+    },
+    "title": {
+      "font": "bold",
+      "size": 22,
+      "color": "#e0def4"
+    },
+    "condition": {
+      "font": "bold",
+      "size": 26,
+      "color": "#e0def4"
+    },
+    "unit": {
+      "font": "bold",
+      "size": 30,
+      "color": "#e0def4"
+    },
+    "large": {
+      "font": "bold",
+      "size": 84,
+      "color": "#e0def4"
+    },
+    "medium": {
+      "font": "bold",
+      "size": 64,
+      "color": "#e0def4"
+    },
+    "small": {
+      "font": "bold",
+      "size": 52,
+      "color": "#e0def4"
+    }
+  },
+  "backdrop": {
+    "base": "#232136",
+    "glow_center": [
+      178,
+      66
+    ],
+    "glow_radius": [
+      34,
+      32
+    ],
+    "glow_gain": [
+      54,
+      32,
+      4
+    ],
+    "stripe_start": 116,
+    "stripe_period": 46,
+    "stripe_width": 8,
+    "stripe_gain": "#050408",
+    "corner_radius": 12
+  },
+  "texts": [
+    {
+      "at": [
+        12,
+        14
+      ],
+      "clip": [
+        0,
+        0,
+        240,
+        240
+      ],
+      "style": "title",
+      "content": "Pogoda"
+    },
+    {
+      "at": [
+        176,
+        18
+      ],
+      "clip": [
+        0,
+        0,
+        240,
+        240
+      ],
+      "style": "label",
+      "content": "TERAZ"
+    },
+    {
+      "at": [
+        12,
+        141
+      ],
+      "clip": [
+        0,
+        0,
+        240,
+        240
+      ],
+      "style": "condition",
+      "content": {
+        "field": "description",
+        "format": "text"
+      }
+    },
+    {
+      "at": [
+        12,
+        169
+      ],
+      "clip": [
+        0,
+        0,
+        240,
+        240
+      ],
+      "style": "label",
+      "content": {
+        "field": "apparent_temperature",
+        "format": "integer",
+        "prefix": "Odczuwalna ",
+        "suffix": "°C"
+      }
+    },
+    {
+      "at": [
+        12,
+        199
+      ],
+      "clip": [
+        0,
+        0,
+        240,
+        240
+      ],
+      "style": "footer",
+      "content": "Wiatr"
+    },
+    {
+      "at": [
+        132,
+        199
+      ],
+      "clip": [
+        0,
+        0,
+        240,
+        240
+      ],
+      "style": "footer",
+      "content": "Opady"
+    },
+    {
+      "at": [
+        12,
+        217
+      ],
+      "clip": [
+        12,
+        216,
+        112,
+        24
+      ],
+      "style": "title",
+      "content": {
+        "field": "wind_ms",
+        "format": "general",
+        "suffix": " m/s"
+      }
+    },
+    {
+      "at": [
+        132,
+        217
+      ],
+      "clip": [
+        132,
+        216,
+        100,
+        24
+      ],
+      "style": "title",
+      "content": {
+        "field": "precipitation_mm",
+        "format": "general",
+        "suffix": " mm"
+      }
+    }
+  ],
+  "metrics": [
+    {
+      "at": [
+        12,
+        46
+      ],
+      "clip": [
+        12,
+        40,
+        138,
+        90
+      ],
+      "sizes": [
+        "large",
+        "medium",
+        "small"
+      ],
+      "fit_width": 112,
+      "content": {
+        "field": "temperature",
+        "format": "integer"
+      },
+      "unit": "°C",
+      "unit_style": "unit",
+      "unit_y": 48,
+      "unit_gap": 3
+    }
+  ],
+  "fields": [
+    {
+      "name": "temperature",
+      "format": "integer",
+      "min": -100,
+      "max": 100
+    },
+    {
+      "name": "apparent_temperature",
+      "format": "integer",
+      "min": -150,
+      "max": 100
+    },
+    {
+      "name": "wind_ms",
+      "format": "general",
+      "min": 0,
+      "max": 150
+    },
+    {
+      "name": "precipitation_mm",
+      "format": "general",
+      "min": 0,
+      "max": 1000
+    },
+    {
+      "name": "description",
+      "format": "text",
+      "max_bytes": 32
+    }
+  ]
+}

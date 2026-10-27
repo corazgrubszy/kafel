@@ -1,0 +1,26 @@
+{
+  "type": "publish",
+  "revision": 1,
+  "tiles": [
+    {
+      "id": "weather",
+      "title": "Pogoda",
+      "state": "ok",
+      "attention": false,
+      "freshness": "fresh",
+      "observed_at": 1793098800,
+      "message": "",
+      "content": {
+        "template": "sha256:15db1ffb4c7f084d6032912306c05d3845a92c9986a1771b612bd79782485451",
+        "data": {
+          "temperature": 13,
+          "apparent_temperature": 11,
+          "wind_ms": 5,
+          "precipitation_mm": 0,
+          "description": "Zachmurzenie",
+          "illustration": "sha256:2a4c9b95edf5bddd37c1f8c68efc23917cce3242041d0ba4d9f3b570174f1a8d"
+        }
+      }
+    }
+  ]
+}
